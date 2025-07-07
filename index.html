@@ -286,106 +286,386 @@
       border-top: 2px solid var(--badge-bg);
       margin-top: 2rem;
     }
+    .headline-video-section {
+      position: relative;
+      width: 100vw;
+      height: 420px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .headline-video-section video {
+      position: absolute;
+      top: 50%; left: 50%;
+      min-width: 100vw;
+      min-height: 100%;
+      width: auto; height: auto;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.6) blur(0.5px);
+    }
+    .headline-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(120deg, #1a1f2b99 80%, #232946cc 100%);
+      z-index: 2;
+    }
+    .headline-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      width: 100%;
+      color: var(--color-main);
+      padding-top: 2rem;
+    }
+    @media (max-width: 600px) {
+      .headline-video-section { height: 220px; }
+      .headline-content { padding-top: 1rem; }
+    }
+    .hero-robotics {
+      position: relative;
+      width: 100vw;
+      height: 420px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-main);
+      z-index: 1;
+    }
+    .hero-bg-svg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 100%;
+      color: var(--color-main);
+      padding-top: 2rem;
+    }
+    .hero-robotics-svg {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+    }
+    .section-divider {
+      width: 100vw;
+      overflow: hidden;
+      background: none;
+      margin: 0;
+      padding: 0;
+      line-height: 0;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      box-shadow: 0 0 16px var(--card-shadow);
+      padding: 1.2rem 1rem;
+      margin-bottom: 1.2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border: 1.5px solid var(--accent2);
+    }
+    .project-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 0 32px var(--accent2)55;
+      border-color: var(--accent);
+    }
+    .project-icon {
+      font-size: 2.2rem;
+      color: var(--accent2);
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px var(--accent)88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .project-btn {
+      display: inline-block;
+      background: var(--accent2);
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.5rem 1.1rem;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      font-weight: bold;
+      margin-top: 0.5rem;
+      margin-right: 0.5rem;
+      box-shadow: 0 0 10px var(--accent)33;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .project-btn:hover {
+      background: var(--accent);
+      color: var(--accent2);
+      box-shadow: 0 0 24px var(--accent2)77;
+      transform: scale(1.07);
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.2rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+    .skill-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      min-width: 180px;
+    }
+    .skill-group-title {
+      color: var(--accent2);
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    .skill-item {
+      background: var(--badge-bg);
+      border-radius: 10px;
+      padding: 0.7rem 1.2rem;
+      color: var(--accent);
+      font-weight: 500;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      box-shadow: 0 0 8px var(--accent2)33;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      border: 1px solid var(--accent2);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .skill-item:hover {
+      box-shadow: 0 0 16px var(--accent2)77;
+      border-color: var(--accent);
+    }
+    .skill-icon {
+      font-size: 1.5rem;
+      color: var(--accent2);
+      display: flex;
+      align-items: center;
+    }
+    .gallery-list {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+    .gallery-img {
+      border-radius: 12px;
+      box-shadow: 0 0 16px var(--accent2)22;
+      width: 220px;
+      height: 140px;
+      object-fit: cover;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid var(--accent2);
+    }
+    .gallery-img:hover {
+      transform: scale(1.06) rotate(-2deg);
+      box-shadow: 0 0 32px var(--accent2)55;
+      border-color: var(--accent);
+    }
+    .tech-stack-list {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+    .tech-logo {
+      height: 48px;
+      width: auto;
+      filter: drop-shadow(0 0 8px var(--accent2)33);
+      background: #fff;
+      border-radius: 8px;
+      padding: 4px 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1.5px solid var(--accent2);
+    }
+    .tech-logo:hover {
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 0 24px var(--accent2)77;
+      border-color: var(--accent);
+    }
+    @media (max-width: 600px) {
+      .hero-robotics { height: 220px; }
+      .hero-content { padding-top: 1rem; }
+      .gallery-img { width: 120px; height: 80px; }
+      .tech-logo { height: 32px; }
+    }
   </style>
   <!-- Plausible Analytics -->
   <script defer data-domain="karthikpythireddi.github.io" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
-  <div id="tsparticles" style="position:fixed;z-index:0;top:0;left:0;width:100vw;height:100vh;"></div>
+  <!-- Futuristic Robotics Hero Section -->
+  <section class="hero-robotics">
+    <div class="hero-bg-svg">
+      <!-- SVG circuit/robotics pattern background -->
+      <svg width="100%" height="100%" viewBox="0 0 1440 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;z-index:0;">
+        <defs>
+          <linearGradient id="cyberGradient" x1="0" y1="0" x2="1440" y2="420" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#0ff" />
+            <stop offset="1" stop-color="#a259ff" />
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="420" fill="url(#cyberGradient)" opacity="0.08"/>
+        <g stroke="#7fdbff" stroke-width="2" opacity="0.18">
+          <circle cx="200" cy="200" r="120" />
+          <rect x="900" y="80" width="220" height="120" rx="30" />
+          <path d="M 0 400 Q 720 300 1440 400" stroke="#a259ff" stroke-width="3" fill="none"/>
+        </g>
+        <g stroke="#a259ff" stroke-width="1.5" opacity="0.12">
+          <rect x="400" y="60" width="180" height="80" rx="20" />
+          <circle cx="1200" cy="300" r="60" />
+        </g>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <img class="profile-pic" src="https://avatars.githubusercontent.com/karthikpythireddi" alt="Karthik" />
+      <h1 class="title is-2">Karthik Pythireddi</h1>
+      <div class="ai-tagline">Engineering the Future: Robotics, AI & Autonomous Systems</div>
+      <p class="subtitle is-4">Robotics Engineer | AI Innovator | Autonomous Driving Specialist</p>
+      <div class="badges">
+        <img src="https://img.shields.io/github/stars/karthikpythireddi?style=social" alt="GitHub stars for Karthik Pythireddi" />
+        <img src="https://img.shields.io/badge/LinkedIn-2.5k%2B-blue?logo=linkedin&style=social" alt="LinkedIn followers for Karthik Pythireddi" />
+      </div>
+      <div class="hero-robotics-svg">
+        <!-- Robotics SVG illustration -->
+        <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="30" width="100" height="30" rx="10" fill="#232946" stroke="#7fdbff" stroke-width="3"/>
+          <circle cx="30" cy="65" r="10" fill="#0ff" opacity="0.7"/>
+          <circle cx="90" cy="65" r="10" fill="#a259ff" opacity="0.7"/>
+          <rect x="50" y="10" width="20" height="20" rx="6" fill="#a259ff" opacity="0.7"/>
+          <rect x="60" y="0" width="6" height="10" rx="3" fill="#7fdbff"/>
+        </svg>
+      </div>
+    </div>
+  </section>
   <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
     <i class="ph ph-moon"></i>
   </button>
-  <section class="section has-text-centered hero-ai">
-    <div class="ai-glow"></div>
-    <img class="profile-pic" src="https://avatars.githubusercontent.com/karthikpythireddi" alt="Karthik" />
-    <h1 class="title is-2">Karthik Pythireddi</h1>
-    <div class="ai-tagline">Building the Future with AI, Robotics & Intelligent Systems</div>
-    <p class="subtitle is-4">AI Researcher | Robotics Innovator | Control Systems Explorer</p>
-    <div class="badges">
-      <img src="https://img.shields.io/github/stars/karthikpythireddi?style=social" alt="GitHub stars for Karthik Pythireddi" />
-      <img src="https://img.shields.io/badge/LinkedIn-2.5k%2B-blue?logo=linkedin&style=social" alt="LinkedIn followers for Karthik Pythireddi" />
-    </div>
-  </section>
+  <!-- Section Divider -->
+  <div class="section-divider">
+    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 20 Q 720 60 1440 20" stroke="#7fdbff" stroke-width="3" fill="none"/>
+    </svg>
+  </div>
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title"><i class="ph ph-cpu"></i> Featured AI & Robotics Projects</h2>
+      <h2 class="section-title"><i class="ph ph-cpu"></i> Featured Robotics & Autonomous Driving Projects</h2>
       <div class="project-card">
-        <span class="project-icon"><i class="ph ph-car"></i></span>
+        <span class="project-icon"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#0ff" opacity="0.2"/><rect x="8" y="12" width="16" height="8" rx="4" fill="#a259ff"/><circle cx="12" cy="24" r="3" fill="#7fdbff"/><circle cx="20" cy="24" r="3" fill="#7fdbff"/></svg></span>
         <div>
           <a href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank"><strong>Lane Keeping using iLQR + MPC</strong></a>
           <div>Autonomous vehicle control with advanced AI and optimal control algorithms.</div>
+          <a class="project-btn" href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank">View on GitHub</a>
         </div>
       </div>
       <div class="project-card">
-        <span class="project-icon"><i class="ph ph-robot"></i></span>
+        <span class="project-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="8" y="8" width="16" height="16" rx="6" fill="#0ff" opacity="0.2"/><rect x="12" y="12" width="8" height="8" rx="2" fill="#a259ff"/></svg></span>
         <div>
           <a href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank"><strong>Model-Free RL for On-Demand Delivery</strong></a>
           <div>Reinforcement learning for real-world logistics and decision making under uncertainty.</div>
+          <a class="project-btn" href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank">View on GitHub</a>
         </div>
       </div>
       <div class="project-card">
-        <span class="project-icon"><i class="ph ph-github-logo"></i></span>
+        <span class="project-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" rx="8" fill="#a259ff" opacity="0.2"/><circle cx="16" cy="16" r="8" fill="#7fdbff"/></svg></span>
         <div>
           <a href="https://github.com/karthikpythireddi" target="_blank"><strong>More on GitHub</strong></a>
-          <div>Explore additional AI, robotics, and control systems projects.</div>
+          <div>Explore additional robotics, AI, and autonomous systems projects.</div>
+          <a class="project-btn" href="https://github.com/karthikpythireddi" target="_blank">View on GitHub</a>
         </div>
       </div>
     </div>
   </section>
+  <!-- Section Divider -->
+  <div class="section-divider">
+    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 20 Q 720 -20 1440 20" stroke="#a259ff" stroke-width="3" fill="none"/>
+    </svg>
+  </div>
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title"><i class="ph ph-timer"></i> My AI & Robotics Journey</h2>
-      <div class="timeline">
-        <div class="timeline-event">
-          <div class="timeline-date">Sep 2022 – Dec 2026 (Expected)</div>
-          <div class="timeline-title">Master of Science in Electrical Engineering: AI & Robotics, Stanford University</div>
-          <div class="timeline-desc">Pursuing advanced research and coursework in AI, robotics, and control systems. All research projects from 2022 onward are part of my Stanford journey, including work on lane-keeping for autonomous vehicles, reinforcement learning for delivery optimization, and state estimation for robotics.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-date">Aug 2014</div>
-          <div class="timeline-title">Graduated B.Tech, Gitam University</div>
-          <div class="timeline-desc">Bachelor of Technology in Electronics and Communication Engineering.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-date">Dec 2017</div>
-          <div class="timeline-title">Graduated MS, RIT</div>
-          <div class="timeline-desc">Master of Science in Electrical Engineering (Control Systems), Rochester Institute of Technology.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-date">Feb 2018 – Apr 2021</div>
-          <div class="timeline-title">Autonomous Driving Systems Test & Verification Engineer, Motional (Hyundai–Aptiv JV)</div>
-          <div class="timeline-desc">Developed and tested high-level controller and planning features for autonomous vehicles. Conducted simulation and in-vehicle experiments, including stress testing features on the Las Vegas Strip and highway testing on the California-Nevada border.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-date">Apr 2021 – Aug 2021</div>
-          <div class="timeline-title">Autonomous Driving Systems Engineer, DIDI Labs</div>
-          <div class="timeline-desc">Worked on autonomy feature test cases for planning and controls. Defined metrics and simulation requirements, and automated data analysis for AV features.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-date">Aug 2021 – Present</div>
-          <div class="timeline-title">Senior Software Validation Engineer – Autonomous Driving, NVIDIA</div>
-          <div class="timeline-desc">Worked on L2/L3 autonomy, system integration, error handling, safety, and validation for NVIDIA DRIVE products. Led validation of sensor modules and platform integration for advanced AV systems.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title"><i class="ph ph-brain"></i> AI Skills & Tools</h2>
+      <h2 class="section-title"><i class="ph ph-brain"></i> Robotics & AI Skills</h2>
       <div class="skills-list">
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-python-logo"></i></span>Python</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-cube"></i></span>ROS</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-cpp"></i></span>C++</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-math-operations"></i></span>MATLAB</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-brain"></i></span>PyTorch</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-brain"></i></span>TensorFlow</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-camera"></i></span>OpenCV</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-gear"></i></span>MPC, PID, LQR</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-map"></i></span>SLAM</div>
-        <div class="skill-item"><span class="skill-icon"><i class="ph ph-wave-sine"></i></span>Kalman Filters</div>
+        <div class="skill-group"><span class="skill-group-title">Robotics Software</span>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-cube"></i></span>ROS</div>
+          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Gazebo_logo.png" alt="Gazebo" style="height:1.2em;vertical-align:middle;"></span>Gazebo</div>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-camera"></i></span>OpenCV</div>
+        </div>
+        <div class="skill-group"><span class="skill-group-title">AI / ML</span>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-python-logo"></i></span>Python</div>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-brain"></i></span>PyTorch</div>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-brain"></i></span>TensorFlow</div>
+        </div>
+        <div class="skill-group"><span class="skill-group-title">Control & Estimation</span>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-gear"></i></span>MPC, PID, LQR</div>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-wave-sine"></i></span>Kalman Filters</div>
+        </div>
+        <div class="skill-group"><span class="skill-group-title">Simulation & Mapping</span>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-map"></i></span>SLAM</div>
+          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Matlab_Logo.png" alt="MATLAB" style="height:1.2em;vertical-align:middle;"></span>MATLAB</div>
+        </div>
+        <div class="skill-group"><span class="skill-group-title">Programming</span>
+          <div class="skill-item"><span class="skill-icon"><i class="ph ph-cpp"></i></span>C++</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section Divider -->
+  <div class="section-divider">
+    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 20 Q 720 60 1440 20" stroke="#7fdbff" stroke-width="3" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Robotics Gallery Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title"><i class="ph ph-image"></i> Robotics Gallery</h2>
+      <div class="gallery-list">
+        <img src="https://images.pexels.com/photos/256381/pexels-photo-256381.jpeg?auto=compress&w=400" alt="Robot Arm" class="gallery-img" />
+        <img src="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&w=400" alt="Autonomous Car" class="gallery-img" />
+        <img src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&w=400" alt="Robotics Lab" class="gallery-img" />
+      </div>
+    </div>
+  </section>
+  <!-- Section Divider -->
+  <div class="section-divider">
+    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 20 Q 720 -20 1440 20" stroke="#a259ff" stroke-width="3" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Tech Stack Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title"><i class="ph ph-gear"></i> Tech Stack</h2>
+      <div class="tech-stack-list">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/ROS_logo.svg" alt="ROS" class="tech-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Gazebo_logo.png" alt="Gazebo" class="tech-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Matlab_Logo.png" alt="MATLAB" class="tech-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" alt="TensorFlow" class="tech-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg" alt="PyTorch" class="tech-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/OpenCV_Logo_with_text_svg_version.svg" alt="OpenCV" class="tech-logo" />
       </div>
     </div>
   </section>
