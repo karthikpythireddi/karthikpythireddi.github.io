@@ -3,91 +3,214 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karthik Pythireddi | Robotics & AI</title>
+  <title>Karthik Pythireddi | AI & Robotics</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0d1117;
-      color: #c9d1d9;
-      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0d1117 60%, #1a1f2b 100%);
+      color: #e0e6f6;
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      min-height: 100vh;
     }
     a {
-      color: #58a6ff;
+      color: #7fdbff;
+      transition: color 0.2s;
     }
     a:hover {
+      color: #a259ff;
       text-decoration: underline;
     }
     h1, h2, h3 {
-      color: #58a6ff;
+      color: #a259ff;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      letter-spacing: 1px;
+    }
+    .hero-ai {
+      background: linear-gradient(120deg, #1a1f2b 80%, #232946 100%);
+      border-radius: 20px;
+      box-shadow: 0 0 40px #7fdbff44, 0 0 0 #0000;
+      padding: 2.5rem 1.5rem 2rem 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ai-glow {
+      position: absolute;
+      top: -40px; left: 50%;
+      transform: translateX(-50%);
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, #7fdbff 0%, #a259ff 60%, #232946 100%);
+      opacity: 0.18;
+      filter: blur(30px);
+      z-index: 0;
     }
     .profile-pic {
       border-radius: 50%;
-      margin-bottom: 20px;
+      border: 3px solid #7fdbff;
+      box-shadow: 0 0 20px #a259ff88;
+      margin-bottom: 18px;
+      width: 120px;
+      z-index: 1;
+      position: relative;
     }
-    .button-img {
-      height: 45px;
-      width: 162px;
-      margin: 10px;
+    .ai-tagline {
+      font-size: 1.3rem;
+      color: #7fdbff;
+      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      text-shadow: 0 0 8px #7fdbff44;
     }
-    .section {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+    .project-card {
+      background: #181c27;
+      border-radius: 14px;
+      box-shadow: 0 0 16px #7fdbff22;
+      padding: 1.2rem 1rem;
+      margin-bottom: 1.2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .project-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 0 32px #a259ff55;
+    }
+    .project-icon {
+      font-size: 2.2rem;
+      color: #a259ff;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px #7fdbff88);
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+    .skill-item {
+      background: #232946;
+      border-radius: 10px;
+      padding: 0.7rem 1.2rem;
+      color: #7fdbff;
+      font-weight: 500;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      box-shadow: 0 0 8px #a259ff33;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+    }
+    .skill-icon {
+      font-size: 1.5rem;
+      color: #a259ff;
+    }
+    .button-img, .button.is-link {
+      margin: 10px 8px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #7fdbff33;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .button-img:hover, .button.is-link:hover {
+      box-shadow: 0 0 24px #a259ff77;
+      transform: scale(1.05);
+    }
+    .section-title {
+      margin-bottom: 1.2rem;
+      font-size: 1.6rem;
+      color: #7fdbff;
+      text-shadow: 0 0 8px #7fdbff33;
+    }
+    .publications {
+      background: #181c27;
+      border-radius: 14px;
+      box-shadow: 0 0 16px #a259ff22;
+      padding: 1.2rem 1rem;
+      margin-bottom: 1.2rem;
+    }
+    footer {
+      background: #181c27;
+      color: #7fdbff;
+      padding: 1.5rem 0 0.5rem 0;
+      font-size: 1rem;
+      border-top: 2px solid #232946;
+      margin-top: 2rem;
     }
   </style>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-  <section class="section has-text-centered">
+  <section class="section has-text-centered hero-ai">
+    <div class="ai-glow"></div>
+    <img class="profile-pic" src="https://avatars.githubusercontent.com/karthikpythireddi" alt="Karthik" />
+    <h1 class="title is-2">Karthik Pythireddi</h1>
+    <div class="ai-tagline">Building the Future with AI, Robotics & Intelligent Systems</div>
+    <p class="subtitle is-4">AI Researcher | Robotics Innovator | Control Systems Explorer</p>
+  </section>
+
+  <section class="section">
     <div class="container">
-      <img class="profile-pic" src="https://avatars.githubusercontent.com/karthikpythireddi" width="120" alt="Karthik" />
-      <h1 class="title is-2">Karthik Pythireddi</h1>
-      <p class="subtitle is-4">Robotics Enthusiast | AI Researcher | Control Systems Explorer</p>
+      <h2 class="section-title"><i class="ph ph-cpu"></i> Featured AI & Robotics Projects</h2>
+      <div class="project-card">
+        <span class="project-icon"><i class="ph ph-car"></i></span>
+        <div>
+          <a href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank"><strong>Lane Keeping using iLQR + MPC</strong></a>
+          <div>Autonomous vehicle control with advanced AI and optimal control algorithms.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <span class="project-icon"><i class="ph ph-robot"></i></span>
+        <div>
+          <a href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank"><strong>Model-Free RL for On-Demand Delivery</strong></a>
+          <div>Reinforcement learning for real-world logistics and decision making under uncertainty.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <span class="project-icon"><i class="ph ph-github-logo"></i></span>
+        <div>
+          <a href="https://github.com/karthikpythireddi" target="_blank"><strong>More on GitHub</strong></a>
+          <div>Explore additional AI, robotics, and control systems projects.</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="title is-4">🤖 AI & Robotics Projects</h2>
-      <ul>
-        <li><a href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank">Lane Keeping using iLQR + MPC for Autonomous Vehicles</a></li>
-        <li><a href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank">Model-Free RL for On-Demand Delivery Optimization</a></li>
-      </ul>
+      <h2 class="section-title"><i class="ph ph-brain"></i> AI Skills & Tools</h2>
+      <div class="skills-list">
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-python-logo"></i></span>Python</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-cube"></i></span>ROS</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-cpp"></i></span>C++</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-math-operations"></i></span>MATLAB</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-brain"></i></span>PyTorch</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-brain"></i></span>TensorFlow</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-camera"></i></span>OpenCV</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-gear"></i></span>MPC, PID, LQR</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-map"></i></span>SLAM</div>
+        <div class="skill-item"><span class="skill-icon"><i class="ph ph-wave-sine"></i></span>Kalman Filters</div>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="title is-4">🔧 General Projects</h2>
-      <ul>
-        <li><a href="https://github.com/karthikpythireddi" target="_blank">View more on GitHub</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="title is-4">🧠 Tools & Frameworks</h2>
-      <ul>
-        <li>Python, ROS, C++, MATLAB</li>
-        <li>PyTorch, TensorFlow, OpenCV</li>
-        <li>MPC, PID, LQR, SLAM, Kalman Filters</li>
-      </ul>
+      <h2 class="section-title"><i class="ph ph-book-open"></i> Publications & Blog</h2>
+      <div class="publications">
+        <p>Coming soon: Articles, research papers, and AI insights.</p>
+      </div>
     </div>
   </section>
 
   <section class="section has-text-centered">
     <div class="container">
       <a href="https://buymeacoffee.com/karthikpythireddi" target="_blank">
-        <img class="button-img" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" />
+        <img class="button-img" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="162" height="45" />
       </a>
       <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank">
-        <img class="button-img" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" />
+        <img class="button-img" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="45" height="45" />
       </a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container has-text-centered">
-      <h2 class="title is-4">📄 Resume</h2>
       <a class="button is-link" href="resume.pdf" download>Download Resume</a>
     </div>
   </section>
