@@ -6,49 +6,71 @@
   <title>Karthik Pythireddi | AI & Robotics</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
+    :root {
+      --bg-main: linear-gradient(135deg, #0d1117 60%, #1a1f2b 100%);
+      --color-main: #e0e6f6;
+      --accent: #7fdbff;
+      --accent2: #a259ff;
+      --card-bg: #181c27;
+      --card-shadow: #7fdbff22;
+      --badge-bg: #232946;
+    }
+    [data-theme="light"] {
+      --bg-main: linear-gradient(135deg, #f5f7fa 60%, #e3e8f0 100%);
+      --color-main: #232946;
+      --accent: #a259ff;
+      --accent2: #7fdbff;
+      --card-bg: #fff;
+      --card-shadow: #a259ff22;
+      --badge-bg: #e3e8f0;
+    }
     body {
-      background: linear-gradient(135deg, #0d1117 60%, #1a1f2b 100%);
-      color: #e0e6f6;
+      background: var(--bg-main);
+      color: var(--color-main);
       font-family: 'Roboto', 'Segoe UI', sans-serif;
       min-height: 100vh;
+      transition: background 0.4s, color 0.4s;
     }
     a {
-      color: #7fdbff;
+      color: var(--accent);
       transition: color 0.2s;
     }
     a:hover {
-      color: #a259ff;
+      color: var(--accent2);
       text-decoration: underline;
     }
     h1, h2, h3 {
-      color: #a259ff;
+      color: var(--accent2);
       font-family: 'Orbitron', 'Roboto', sans-serif;
       letter-spacing: 1px;
     }
     .hero-ai {
       background: linear-gradient(120deg, #1a1f2b 80%, #232946 100%);
       border-radius: 20px;
-      box-shadow: 0 0 40px #7fdbff44, 0 0 0 #0000;
+      box-shadow: 0 0 40px var(--card-shadow), 0 0 0 #0000;
       padding: 2.5rem 1.5rem 2rem 1.5rem;
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
     .ai-glow {
       position: absolute;
       top: -40px; left: 50%;
       transform: translateX(-50%);
       width: 180px; height: 180px;
-      background: radial-gradient(circle, #7fdbff 0%, #a259ff 60%, #232946 100%);
+      background: radial-gradient(circle, var(--accent) 0%, var(--accent2) 60%, #232946 100%);
       opacity: 0.18;
       filter: blur(30px);
       z-index: 0;
     }
     .profile-pic {
       border-radius: 50%;
-      border: 3px solid #7fdbff;
-      box-shadow: 0 0 20px #a259ff88;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 20px var(--accent2)88;
       margin-bottom: 18px;
       width: 120px;
       z-index: 1;
@@ -56,15 +78,37 @@
     }
     .ai-tagline {
       font-size: 1.3rem;
-      color: #7fdbff;
+      color: var(--accent);
       margin-bottom: 0.5rem;
       font-family: 'Orbitron', 'Roboto', sans-serif;
-      text-shadow: 0 0 8px #7fdbff44;
+      text-shadow: 0 0 8px var(--accent)44;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      z-index: 10;
+      background: var(--badge-bg);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 8px var(--accent2)33;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--accent2);
+      color: #fff;
+      box-shadow: 0 0 16px var(--accent2)77;
     }
     .project-card {
-      background: #181c27;
+      background: var(--card-bg);
       border-radius: 14px;
-      box-shadow: 0 0 16px #7fdbff22;
+      box-shadow: 0 0 16px var(--card-shadow);
       padding: 1.2rem 1rem;
       margin-bottom: 1.2rem;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -74,13 +118,13 @@
     }
     .project-card:hover {
       transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 0 32px #a259ff55;
+      box-shadow: 0 0 32px var(--accent2)55;
     }
     .project-icon {
       font-size: 2.2rem;
-      color: #a259ff;
+      color: var(--accent2);
       flex-shrink: 0;
-      filter: drop-shadow(0 0 8px #7fdbff88);
+      filter: drop-shadow(0 0 8px var(--accent)88);
     }
     .skills-list {
       display: flex;
@@ -90,13 +134,13 @@
       margin-top: 1.2rem;
     }
     .skill-item {
-      background: #232946;
+      background: var(--badge-bg);
       border-radius: 10px;
       padding: 0.7rem 1.2rem;
-      color: #7fdbff;
+      color: var(--accent);
       font-weight: 500;
       font-family: 'Orbitron', 'Roboto', sans-serif;
-      box-shadow: 0 0 8px #a259ff33;
+      box-shadow: 0 0 8px var(--accent2)33;
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -104,49 +148,165 @@
     }
     .skill-icon {
       font-size: 1.5rem;
-      color: #a259ff;
+      color: var(--accent2);
     }
     .button-img, .button.is-link {
       margin: 10px 8px;
       border-radius: 8px;
-      box-shadow: 0 0 10px #7fdbff33;
+      box-shadow: 0 0 10px var(--accent)33;
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .button-img:hover, .button.is-link:hover {
-      box-shadow: 0 0 24px #a259ff77;
+      box-shadow: 0 0 24px var(--accent2)77;
       transform: scale(1.05);
     }
     .section-title {
       margin-bottom: 1.2rem;
       font-size: 1.6rem;
-      color: #7fdbff;
-      text-shadow: 0 0 8px #7fdbff33;
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent)33;
     }
     .publications {
-      background: #181c27;
+      background: var(--card-bg);
       border-radius: 14px;
-      box-shadow: 0 0 16px #a259ff22;
+      box-shadow: 0 0 16px var(--accent2)22;
       padding: 1.2rem 1rem;
       margin-bottom: 1.2rem;
     }
+    .timeline {
+      margin: 2rem 0 2.5rem 0;
+      border-left: 3px solid var(--accent2);
+      padding-left: 2rem;
+      position: relative;
+    }
+    .timeline-event {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .timeline-event:before {
+      content: '';
+      position: absolute;
+      left: -2.1rem;
+      top: 0.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      background: var(--accent2);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent)77;
+      border: 3px solid var(--bg-main);
+    }
+    .timeline-date {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+    }
+    .timeline-title {
+      font-weight: bold;
+      color: var(--accent2);
+      font-size: 1.1rem;
+    }
+    .timeline-desc {
+      color: var(--color-main);
+      font-size: 1rem;
+    }
+    .contact-form {
+      background: var(--card-bg);
+      border-radius: 14px;
+      box-shadow: 0 0 16px var(--accent2)22;
+      padding: 1.5rem 1rem;
+      margin: 1.5rem auto 2rem auto;
+      max-width: 420px;
+    }
+    .contact-form input, .contact-form textarea {
+      background: var(--badge-bg);
+      color: var(--color-main);
+      border: 1px solid var(--accent2);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+    .contact-form button {
+      background: var(--accent2);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      box-shadow: 0 0 8px var(--accent)33;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .contact-form button:hover {
+      background: var(--accent);
+      color: var(--accent2);
+      box-shadow: 0 0 16px var(--accent2)77;
+    }
+    .email-btn {
+      display: inline-block;
+      background: var(--accent2);
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.7rem 1.4rem;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      font-weight: bold;
+      margin: 1rem 0;
+      box-shadow: 0 0 10px var(--accent)33;
+      transition: background 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .email-btn:hover {
+      background: var(--accent);
+      color: var(--accent2);
+      box-shadow: 0 0 24px var(--accent2)77;
+    }
+    .badges {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.5rem 0 0.5rem 0;
+      flex-wrap: wrap;
+    }
+    .visitor-counter {
+      display: inline-block;
+      background: var(--badge-bg);
+      color: var(--accent2);
+      border-radius: 8px;
+      padding: 0.4rem 1rem;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 0 8px var(--accent2)33;
+    }
     footer {
-      background: #181c27;
-      color: #7fdbff;
+      background: var(--card-bg);
+      color: var(--accent);
       padding: 1.5rem 0 0.5rem 0;
       font-size: 1rem;
-      border-top: 2px solid #232946;
+      border-top: 2px solid var(--badge-bg);
       margin-top: 2rem;
     }
   </style>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Plausible Analytics -->
+  <script defer data-domain="karthikpythireddi.github.io" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
+  <div id="tsparticles" style="position:fixed;z-index:0;top:0;left:0;width:100vw;height:100vh;"></div>
+  <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
+    <i class="ph ph-moon"></i>
+  </button>
   <section class="section has-text-centered hero-ai">
     <div class="ai-glow"></div>
     <img class="profile-pic" src="https://avatars.githubusercontent.com/karthikpythireddi" alt="Karthik" />
     <h1 class="title is-2">Karthik Pythireddi</h1>
     <div class="ai-tagline">Building the Future with AI, Robotics & Intelligent Systems</div>
     <p class="subtitle is-4">AI Researcher | Robotics Innovator | Control Systems Explorer</p>
+    <div class="badges">
+      <img src="https://img.shields.io/github/stars/karthikpythireddi?style=social" alt="GitHub stars" />
+      <img src="https://img.shields.io/badge/LinkedIn-2.5k%2B-blue?logo=linkedin&style=social" alt="LinkedIn followers" />
+    </div>
+    <div class="visitor-counter">
+      <img src="https://www.cutercounter.com/hits.php?id=hrxqf&nd=6&style=1" alt="visitor counter" style="vertical-align:middle; margin-right:0.5rem;"/> Visitors
+    </div>
   </section>
 
   <section class="section">
@@ -171,6 +331,34 @@
         <div>
           <a href="https://github.com/karthikpythireddi" target="_blank"><strong>More on GitHub</strong></a>
           <div>Explore additional AI, robotics, and control systems projects.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title"><i class="ph ph-timer"></i> My AI & Robotics Journey</h2>
+      <div class="timeline">
+        <div class="timeline-event">
+          <div class="timeline-date">2021</div>
+          <div class="timeline-title">Started Graduate Studies in AI & Robotics</div>
+          <div class="timeline-desc">Began formal education and research in artificial intelligence, robotics, and control systems.</div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-date">2022</div>
+          <div class="timeline-title">First AI Research Project</div>
+          <div class="timeline-desc">Developed lane keeping for autonomous vehicles using iLQR and MPC.</div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-date">2023</div>
+          <div class="timeline-title">Reinforcement Learning for Delivery Optimization</div>
+          <div class="timeline-desc">Applied model-free RL to real-world logistics and decision making under uncertainty.</div>
+        </div>
+        <div class="timeline-event">
+          <div class="timeline-date">2024</div>
+          <div class="timeline-title">Expanding AI Portfolio</div>
+          <div class="timeline-desc">Contributed to open-source AI projects and started sharing insights via blog and talks.</div>
         </div>
       </div>
     </div>
@@ -203,6 +391,21 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title"><i class="ph ph-envelope"></i> Contact</h2>
+      <form class="contact-form" action="https://formspree.io/f/xayrjzqg" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="has-text-centered">
+        <a class="email-btn" href="mailto:karthikpythireddi@gmail.com"><i class="ph ph-paper-plane"></i> Email Me</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section has-text-centered">
     <div class="container">
       <a href="https://buymeacoffee.com/karthikpythireddi" target="_blank">
@@ -212,6 +415,7 @@
         <img class="button-img" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="45" height="45" />
       </a>
       <a class="button is-link" href="resume.pdf" download>Download Resume</a>
+      <a class="button is-link" href="portfolio.pdf" download>Download Portfolio</a>
     </div>
   </section>
 
@@ -224,5 +428,59 @@
       </p>
     </div>
   </footer>
+  <script>
+    // Theme toggle logic
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeToggle.innerHTML = theme === 'dark' ? '<i class="ph ph-moon"></i>' : '<i class="ph ph-sun"></i>';
+    }
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+    themeToggle.onclick = () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    };
+    // tsparticles config
+    tsParticles.load('tsparticles', {
+      fpsLimit: 60,
+      background: { color: 'transparent' },
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: ["#7fdbff", "#a259ff"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        links: {
+          enable: true,
+          distance: 120,
+          color: "#7fdbff",
+          opacity: 0.3,
+          width: 1.2
+        },
+        move: {
+          enable: true,
+          speed: 1.2,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: { default: "out" }
+        }
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "repulse" },
+          onClick: { enable: true, mode: "push" }
+        },
+        modes: {
+          repulse: { distance: 80, duration: 0.4 },
+          push: { quantity: 4 }
+        }
+      },
+      detectRetina: true
+    });
+  </script>
 </body>
 </html>
