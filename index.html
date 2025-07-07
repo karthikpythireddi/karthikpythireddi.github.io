@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <meta name="description" content="Karthik Pythireddi - AI Researcher, Robotics Innovator, and Control Systems Explorer. Explore projects, skills, and contact information.">
   <style>
     :root {
       --bg-main: linear-gradient(135deg, #0d1117 60%, #1a1f2b 100%);
@@ -301,11 +302,8 @@
     <div class="ai-tagline">Building the Future with AI, Robotics & Intelligent Systems</div>
     <p class="subtitle is-4">AI Researcher | Robotics Innovator | Control Systems Explorer</p>
     <div class="badges">
-      <img src="https://img.shields.io/github/stars/karthikpythireddi?style=social" alt="GitHub stars" />
-      <img src="https://img.shields.io/badge/LinkedIn-2.5k%2B-blue?logo=linkedin&style=social" alt="LinkedIn followers" />
-    </div>
-    <div class="visitor-counter">
-      <img src="https://www.cutercounter.com/hits.php?id=hrxqf&nd=6&style=1" alt="visitor counter" style="vertical-align:middle; margin-right:0.5rem;"/> Visitors
+      <img src="https://img.shields.io/github/stars/karthikpythireddi?style=social" alt="GitHub stars for Karthik Pythireddi" />
+      <img src="https://img.shields.io/badge/LinkedIn-2.5k%2B-blue?logo=linkedin&style=social" alt="LinkedIn followers for Karthik Pythireddi" />
     </div>
   </section>
 
@@ -419,13 +417,12 @@
   <section class="section has-text-centered">
     <div class="container">
       <a href="https://buymeacoffee.com/karthikpythireddi" target="_blank">
-        <img class="button-img" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="162" height="45" />
+        <img class="button-img" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee button" width="162" height="45" title="Buy Me A Coffee" />
       </a>
       <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank">
-        <img class="button-img" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="45" height="45" />
+        <img class="button-img" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn profile for Karthik Pythireddi" width="45" height="45" title="LinkedIn" />
       </a>
       <a class="button is-link" href="resume.pdf" download>Download Resume</a>
-      <a class="button is-link" href="portfolio.pdf" download>Download Portfolio</a>
     </div>
   </section>
 
@@ -433,8 +430,14 @@
     <div class="content has-text-centered">
       <p>
         © 2025 Karthik Pythireddi |
-        <a href="https://github.com/karthikpythireddi" target="_blank">GitHub</a> |
-        <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank">LinkedIn</a>
+        <a href="https://github.com/karthikpythireddi" target="_blank" title="GitHub">GitHub</a> |
+        <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank" title="LinkedIn">LinkedIn</a>
+      </p>
+      <p>
+        <a href="#top" title="Back to top">Back to top ↑</a>
+      </p>
+      <p style="font-size:0.95em;color:var(--accent2);margin-top:0.5em;">
+        Privacy-friendly analytics by <a href="https://plausible.io/" target="_blank" title="Plausible Analytics">Plausible</a>
       </p>
     </div>
   </footer>
@@ -491,6 +494,15 @@
       },
       detectRetina: true
     });
+    // Contact form success message
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        setTimeout(function() {
+          contactForm.innerHTML = '<div style="color:var(--accent2);font-family:Orbitron,Roboto,sans-serif;font-size:1.2em;text-align:center;">Thank you! Your message has been sent.</div>';
+        }, 500);
+      });
+    }
   </script>
 </body>
 </html>
