@@ -3,768 +3,918 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karthik Pythireddi | AI & Robotics</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <meta name="description" content="Karthik Pythireddi - AI Researcher, Robotics Innovator, and Control Systems Explorer. Explore projects, skills, and contact information.">
+  <title>Karthik Pythireddi | AI & Robotics Engineer</title>
+  <meta name="description" content="Karthik Pythireddi - Stanford MS, NVIDIA Senior Engineer. Specializing in autonomous driving, robotics, AI, and control systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg-main: linear-gradient(135deg, #0d1117 60%, #1a1f2b 100%);
-      --color-main: #e0e6f6;
-      --accent: #7fdbff;
-      --accent2: #a259ff;
-      --card-bg: #181c27;
-      --card-shadow: #7fdbff22;
-      --badge-bg: #232946;
+      --bg: #0b0f19;
+      --bg-card: #131825;
+      --bg-card-hover: #1a2035;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-subtle: rgba(59, 130, 246, 0.1);
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --radius: 12px;
+      --max-width: 900px;
     }
+
     [data-theme="light"] {
-      --bg-main: linear-gradient(135deg, #f5f7fa 60%, #e3e8f0 100%);
-      --color-main: #232946;
-      --accent: #a259ff;
-      --accent2: #7fdbff;
-      --card-bg: #fff;
-      --card-shadow: #a259ff22;
-      --badge-bg: #e3e8f0;
+      --bg: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #3b82f6;
+      --accent-subtle: rgba(37, 99, 235, 0.06);
+      --accent-glow: rgba(37, 99, 235, 0.08);
     }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background: var(--bg-main);
-      color: var(--color-main);
-      font-family: 'Roboto', 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      transition: background 0.4s, color 0.4s;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
-    a {
-      color: var(--accent);
-      transition: color 0.2s;
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-hover); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
     }
-    a:hover {
-      color: var(--accent2);
-      text-decoration: underline;
+    [data-theme="light"] nav {
+      background: rgba(248, 250, 252, 0.85);
     }
-    h1, h2, h3 {
-      color: var(--accent2);
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      letter-spacing: 1px;
-    }
-    .hero-ai {
-      background: linear-gradient(120deg, #1a1f2b 80%, #232946 100%);
-      border-radius: 20px;
-      box-shadow: 0 0 40px var(--card-shadow), 0 0 0 #0000;
-      padding: 2.5rem 1.5rem 2rem 1.5rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .ai-glow {
-      position: absolute;
-      top: -40px; left: 50%;
-      transform: translateX(-50%);
-      width: 180px; height: 180px;
-      background: radial-gradient(circle, var(--accent) 0%, var(--accent2) 60%, #232946 100%);
-      opacity: 0.18;
-      filter: blur(30px);
-      z-index: 0;
-    }
-    .profile-pic {
-      border-radius: 50%;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 20px var(--accent2)88;
-      margin-bottom: 18px;
-      width: 120px;
-      z-index: 1;
-      position: relative;
-    }
-    .ai-tagline {
-      font-size: 1.3rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      text-shadow: 0 0 8px var(--accent)44;
-    }
-    .theme-toggle {
-      position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      z-index: 10;
-      background: var(--badge-bg);
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 60px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 8px var(--accent2)33;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s;
+      justify-content: space-between;
     }
-    .theme-toggle:hover {
-      background: var(--accent2);
-      color: #fff;
-      box-shadow: 0 0 16px var(--accent2)77;
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
     }
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      box-shadow: 0 0 16px var(--card-shadow);
-      padding: 1.2rem 1rem;
-      margin-bottom: 1.2rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .project-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 0 32px var(--accent2)55;
-    }
-    .project-icon {
-      font-size: 2.2rem;
-      color: var(--accent2);
-      flex-shrink: 0;
-      filter: drop-shadow(0 0 8px var(--accent)88);
-    }
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      justify-content: center;
-      margin-top: 1.2rem;
-    }
-    .skill-item {
-      background: var(--badge-bg);
-      border-radius: 10px;
-      padding: 0.7rem 1.2rem;
-      color: var(--accent);
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
       font-weight: 500;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      box-shadow: 0 0 8px var(--accent2)33;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--accent-subtle); }
+    .theme-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      margin-left: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .mobile-menu-btn {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 1.5rem; cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .hero-top {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      font-size: 1.1rem;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
     }
-    .skill-icon {
-      font-size: 1.5rem;
-      color: var(--accent2);
-    }
-    .button-img, .button.is-link {
-      margin: 10px 8px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px var(--accent)33;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .button-img:hover, .button.is-link:hover {
-      box-shadow: 0 0 24px var(--accent2)77;
-      transform: scale(1.05);
-    }
-    .section-title {
-      margin-bottom: 1.2rem;
-      font-size: 1.6rem;
-      color: var(--accent);
-      text-shadow: 0 0 8px var(--accent)33;
-    }
-    .publications {
-      background: var(--card-bg);
-      border-radius: 14px;
-      box-shadow: 0 0 16px var(--accent2)22;
-      padding: 1.2rem 1rem;
-      margin-bottom: 1.2rem;
-    }
-    .timeline {
-      margin: 2rem 0 2.5rem 0;
-      border-left: 3px solid var(--accent2);
-      padding-left: 2rem;
-      position: relative;
-    }
-    .timeline-event {
-      margin-bottom: 2rem;
-      position: relative;
-    }
-    .timeline-event:before {
-      content: '';
-      position: absolute;
-      left: -2.1rem;
-      top: 0.2rem;
-      width: 1.2rem;
-      height: 1.2rem;
-      background: var(--accent2);
+    .hero-avatar {
+      width: 80px; height: 80px;
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent)77;
-      border: 3px solid var(--bg-main);
+      border: 2px solid var(--border);
+      object-fit: cover;
+      flex-shrink: 0;
     }
-    .timeline-date {
-      font-size: 0.95rem;
-      color: var(--accent);
-      margin-bottom: 0.2rem;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
+    .hero-intro h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text);
     }
-    .timeline-title {
-      font-weight: bold;
-      color: var(--accent2);
+    .hero-intro .tagline {
+      color: var(--text-secondary);
       font-size: 1.1rem;
+      margin-top: 0.25rem;
     }
-    .timeline-desc {
-      color: var(--color-main);
-      font-size: 1rem;
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      line-height: 1.8;
     }
-    .contact-form {
-      background: var(--card-bg);
-      border-radius: 14px;
-      box-shadow: 0 0 16px var(--accent2)22;
-      padding: 1.5rem 1rem;
-      margin: 1.5rem auto 2rem auto;
-      max-width: 420px;
-    }
-    .contact-form input, .contact-form textarea {
-      background: var(--badge-bg);
-      color: var(--color-main);
-      border: 1px solid var(--accent2);
-      border-radius: 6px;
-      margin-bottom: 1rem;
-    }
-    .contact-form button {
-      background: var(--accent2);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 0.6rem 1.2rem;
-      font-weight: bold;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      box-shadow: 0 0 8px var(--accent)33;
-      transition: background 0.2s, box-shadow 0.2s;
-    }
-    .contact-form button:hover {
-      background: var(--accent);
-      color: var(--accent2);
-      box-shadow: 0 0 16px var(--accent2)77;
-    }
-    .email-btn {
-      display: inline-block;
-      background: var(--accent2);
-      color: #fff;
-      border-radius: 8px;
-      padding: 0.7rem 1.4rem;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      font-weight: bold;
-      margin: 1rem 0;
-      box-shadow: 0 0 10px var(--accent)33;
-      transition: background 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-    }
-    .email-btn:hover {
-      background: var(--accent);
-      color: var(--accent2);
-      box-shadow: 0 0 24px var(--accent2)77;
-    }
-    .badges {
+    .hero-bio strong { color: var(--text); font-weight: 600; }
+    .hero-links {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin: 1.5rem 0 0.5rem 0;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
       flex-wrap: wrap;
     }
-    .visitor-counter {
-      display: inline-block;
-      background: var(--badge-bg);
-      color: var(--accent2);
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 8px;
-      padding: 0.4rem 1rem;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      font-size: 1rem;
-      margin-top: 0.5rem;
-      box-shadow: 0 0 8px var(--accent2)33;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: var(--font);
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
     }
-    footer {
-      background: var(--card-bg);
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-hover); color: #fff; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn svg { width: 16px; height: 16px; }
+
+    /* ── Section Layout ── */
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
       color: var(--accent);
-      padding: 1.5rem 0 0.5rem 0;
-      font-size: 1rem;
-      border-top: 2px solid var(--badge-bg);
-      margin-top: 2rem;
-    }
-    .headline-video-section {
-      position: relative;
-      width: 100vw;
-      height: 420px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .headline-video-section video {
-      position: absolute;
-      top: 50%; left: 50%;
-      min-width: 100vw;
-      min-height: 100%;
-      width: auto; height: auto;
-      z-index: 1;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-      filter: brightness(0.6) blur(0.5px);
-    }
-    .headline-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(120deg, #1a1f2b99 80%, #232946cc 100%);
-      z-index: 2;
-    }
-    .headline-content {
-      position: relative;
-      z-index: 3;
-      text-align: center;
-      width: 100%;
-      color: var(--color-main);
-      padding-top: 2rem;
-    }
-    @media (max-width: 600px) {
-      .headline-video-section { height: 220px; }
-      .headline-content { padding-top: 1rem; }
-    }
-    .hero-robotics {
-      position: relative;
-      width: 100vw;
-      height: 420px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-main);
-      z-index: 1;
-    }
-    .hero-bg-svg {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      width: 100%;
-      color: var(--color-main);
-      padding-top: 2rem;
-    }
-    .hero-robotics-svg {
-      margin-top: 1.2rem;
-      display: flex;
-      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      background: var(--accent-subtle);
+      border-radius: 4px;
     }
     .section-divider {
-      width: 100vw;
-      overflow: hidden;
-      background: none;
-      margin: 0;
-      padding: 0;
-      line-height: 0;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      box-shadow: 0 0 16px var(--card-shadow);
-      padding: 1.2rem 1rem;
-      margin-bottom: 1.2rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      border: 1.5px solid var(--accent2);
-    }
-    .project-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 0 32px var(--accent2)55;
-      border-color: var(--accent);
-    }
-    .project-icon {
-      font-size: 2.2rem;
-      color: var(--accent2);
-      flex-shrink: 0;
-      filter: drop-shadow(0 0 8px var(--accent)88);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .project-btn {
-      display: inline-block;
-      background: var(--accent2);
-      color: #fff;
-      border-radius: 8px;
-      padding: 0.5rem 1.1rem;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      font-weight: bold;
-      margin-top: 0.5rem;
-      margin-right: 0.5rem;
-      box-shadow: 0 0 10px var(--accent)33;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-      text-decoration: none;
+    .section-divider hr {
       border: none;
-      cursor: pointer;
+      border-top: 1px solid var(--border);
     }
-    .project-btn:hover {
-      background: var(--accent);
-      color: var(--accent2);
-      box-shadow: 0 0 24px var(--accent2)77;
-      transform: scale(1.07);
+
+    /* ── Experience ── */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1.5rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
     }
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.2rem;
-      justify-content: center;
-      margin-top: 1.2rem;
+    .exp-item:last-child { border-bottom: none; }
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding-top: 0.15rem;
     }
-    .skill-group {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-      min-width: 180px;
+    .exp-content h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.15rem;
     }
-    .skill-group-title {
-      color: var(--accent2);
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
-      font-weight: bold;
-    }
-    .skill-item {
-      background: var(--badge-bg);
-      border-radius: 10px;
-      padding: 0.7rem 1.2rem;
+    .exp-company {
       color: var(--accent);
       font-weight: 500;
-      font-family: 'Orbitron', 'Roboto', sans-serif;
-      box-shadow: 0 0 8px var(--accent2)33;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 1.1rem;
-      margin-bottom: 0.2rem;
-      border: 1px solid var(--accent2);
-      transition: box-shadow 0.2s, border-color 0.2s;
+      font-size: 0.95rem;
     }
-    .skill-item:hover {
-      box-shadow: 0 0 16px var(--accent2)77;
-      border-color: var(--accent);
+    .exp-location {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
     }
-    .skill-icon {
-      font-size: 1.5rem;
-      color: var(--accent2);
-      display: flex;
-      align-items: center;
+    .exp-bullets {
+      list-style: none;
+      padding: 0;
     }
-    .gallery-list {
-      display: flex;
+    .exp-bullets li {
+      position: relative;
+      padding-left: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ── Education ── */
+    .edu-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
       gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
     }
-    .gallery-img {
-      border-radius: 12px;
-      box-shadow: 0 0 16px var(--accent2)22;
-      width: 220px;
-      height: 140px;
-      object-fit: cover;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border: 2px solid var(--accent2);
+    .edu-item:last-child { border-bottom: none; }
+    .edu-date {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding-top: 0.15rem;
     }
-    .gallery-img:hover {
-      transform: scale(1.06) rotate(-2deg);
-      box-shadow: 0 0 32px var(--accent2)55;
+    .edu-content h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.1rem;
+    }
+    .edu-degree {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .edu-detail {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Projects ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
       border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
     }
-    .tech-stack-list {
+    .project-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .project-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .project-tags {
       display: flex;
-      gap: 2rem;
-      justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
-      margin-top: 1.2rem;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
     }
-    .tech-logo {
-      height: 48px;
-      width: auto;
-      filter: drop-shadow(0 0 8px var(--accent2)33);
-      background: #fff;
-      border-radius: 8px;
-      padding: 4px 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border: 1.5px solid var(--accent2);
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: var(--accent-subtle);
+      color: var(--accent);
     }
-    .tech-logo:hover {
-      transform: scale(1.08) rotate(2deg);
-      box-shadow: 0 0 24px var(--accent2)77;
+    .project-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .project-link::after { content: ' \2192'; }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-category h3 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .skill-tag {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .skill-tag:hover { border-color: var(--accent); }
+
+    /* ── Coursework ── */
+    .coursework-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .course-tag {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      border: 1px solid transparent;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-card {
+      flex: 1;
+      min-width: 200px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover {
       border-color: var(--accent);
+      transform: translateY(-2px);
     }
-    @media (max-width: 600px) {
-      .hero-robotics { height: 220px; }
-      .hero-content { padding-top: 1rem; }
-      .gallery-img { width: 120px; height: 80px; }
-      .tech-logo { height: 32px; }
+    .contact-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-card .label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    .contact-card .value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Footer ── */
+    footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links a:not(.theme-btn) { display: none; }
+      .mobile-menu-btn { display: block; }
+      .hero { padding: 6rem 1.25rem 2.5rem; }
+      .hero-intro h1 { font-size: 1.6rem; }
+      .exp-item, .edu-item {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+      }
+      .project-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .hero-top { flex-direction: column; text-align: center; }
+      .hero-links { justify-content: center; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Mobile nav overlay ── */
+    .mobile-nav {
+      display: none;
+      position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      z-index: 99;
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Animations ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
-  <!-- Plausible Analytics -->
   <script defer data-domain="karthikpythireddi.github.io" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
-  <!-- Futuristic Robotics Hero Section -->
-  <section class="hero-robotics">
-    <div class="hero-bg-svg">
-      <!-- SVG circuit/robotics pattern background -->
-      <svg width="100%" height="100%" viewBox="0 0 1440 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;z-index:0;">
-        <defs>
-          <linearGradient id="cyberGradient" x1="0" y1="0" x2="1440" y2="420" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#0ff" />
-            <stop offset="1" stop-color="#a259ff" />
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="420" fill="url(#cyberGradient)" opacity="0.08"/>
-        <g stroke="#7fdbff" stroke-width="2" opacity="0.18">
-          <circle cx="200" cy="200" r="120" />
-          <rect x="900" y="80" width="220" height="120" rx="30" />
-          <path d="M 0 400 Q 720 300 1440 400" stroke="#a259ff" stroke-width="3" fill="none"/>
-        </g>
-        <g stroke="#a259ff" stroke-width="1.5" opacity="0.12">
-          <rect x="400" y="60" width="180" height="80" rx="20" />
-          <circle cx="1200" cy="300" r="60" />
-        </g>
-      </svg>
-    </div>
-    <div class="hero-content">
-      <img class="profile-pic" src="https://avatars.githubusercontent.com/karthikpythireddi" alt="Karthik" />
-      <h1 class="title is-2">Karthik Pythireddi</h1>
-      <div class="ai-tagline">Engineering the Future: Robotics, AI & Autonomous Systems</div>
-      <p class="subtitle is-4">Robotics Engineer | AI Innovator | Autonomous Driving Specialist</p>
-      <div class="badges">
-        <img src="https://img.shields.io/github/stars/karthikpythireddi?style=social" alt="GitHub stars for Karthik Pythireddi" />
-        <img src="https://img.shields.io/badge/LinkedIn-2.5k%2B-blue?logo=linkedin&style=social" alt="LinkedIn followers for Karthik Pythireddi" />
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">KP</span>
+      <div class="nav-links">
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme">&#9789;</button>
       </div>
-      <div class="hero-robotics-svg">
-        <!-- Robotics SVG illustration -->
-        <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="30" width="100" height="30" rx="10" fill="#232946" stroke="#7fdbff" stroke-width="3"/>
-          <circle cx="30" cy="65" r="10" fill="#0ff" opacity="0.7"/>
-          <circle cx="90" cy="65" r="10" fill="#a259ff" opacity="0.7"/>
-          <rect x="50" y="10" width="20" height="20" rx="6" fill="#a259ff" opacity="0.7"/>
-          <rect x="60" y="0" width="6" height="10" rx="3" fill="#7fdbff"/>
-        </svg>
-      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">&#9776;</button>
     </div>
-  </section>
-  <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
-    <i class="ph ph-moon"></i>
-  </button>
-  <!-- Section Divider -->
-  <div class="section-divider">
-    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 20 Q 720 60 1440 20" stroke="#7fdbff" stroke-width="3" fill="none"/>
-    </svg>
+  </nav>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#experience" onclick="closeMobile()">Experience</a>
+    <a href="#education" onclick="closeMobile()">Education</a>
+    <a href="#projects" onclick="closeMobile()">Projects</a>
+    <a href="#skills" onclick="closeMobile()">Skills</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
   </div>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title"><i class="ph ph-cpu"></i> Featured Robotics & Autonomous Driving Projects</h2>
-      <div class="project-card">
-        <span class="project-icon"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#0ff" opacity="0.2"/><rect x="8" y="12" width="16" height="8" rx="4" fill="#a259ff"/><circle cx="12" cy="24" r="3" fill="#7fdbff"/><circle cx="20" cy="24" r="3" fill="#7fdbff"/></svg></span>
-        <div>
-          <a href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank"><strong>Lane Keeping using iLQR + MPC</strong></a>
-          <div>Autonomous vehicle control with advanced AI and optimal control algorithms.</div>
-          <a class="project-btn" href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank">View on GitHub</a>
-        </div>
-      </div>
-      <div class="project-card">
-        <span class="project-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="8" y="8" width="16" height="16" rx="6" fill="#0ff" opacity="0.2"/><rect x="12" y="12" width="8" height="8" rx="2" fill="#a259ff"/></svg></span>
-        <div>
-          <a href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank"><strong>Model-Free RL for On-Demand Delivery</strong></a>
-          <div>Reinforcement learning for real-world logistics and decision making under uncertainty.</div>
-          <a class="project-btn" href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank">View on GitHub</a>
-        </div>
-      </div>
-      <div class="project-card">
-        <span class="project-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" rx="8" fill="#a259ff" opacity="0.2"/><circle cx="16" cy="16" r="8" fill="#7fdbff"/></svg></span>
-        <div>
-          <a href="https://github.com/karthikpythireddi" target="_blank"><strong>More on GitHub</strong></a>
-          <div>Explore additional robotics, AI, and autonomous systems projects.</div>
-          <a class="project-btn" href="https://github.com/karthikpythireddi" target="_blank">View on GitHub</a>
-        </div>
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-top">
+      <img class="hero-avatar" src="https://avatars.githubusercontent.com/karthikpythireddi" alt="Karthik Pythireddi" />
+      <div class="hero-intro">
+        <h1>Karthik Pythireddi</h1>
+        <p class="tagline">Senior Staff System Integration &amp; Test Engineer at NVIDIA &middot; Stanford MS</p>
       </div>
     </div>
-  </section>
-  <!-- Section Divider -->
-  <div class="section-divider">
-    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 20 Q 720 -20 1440 20" stroke="#a259ff" stroke-width="3" fill="none"/>
-    </svg>
-  </div>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title"><i class="ph ph-brain"></i> Robotics & AI Skills</h2>
-      <div class="skills-list">
-        <div class="skill-group"><span class="skill-group-title">Robotics Software</span>
-          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/ROS_logo.svg" alt="ROS" style="height:1.5em;vertical-align:middle;background:#fff;border-radius:4px;padding:2px;" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/ros/rosdistro/master/ros_logo.png'"/></span>ROS</div>
-          <div class="skill-item"><span class="skill-icon"><img src="https://raw.githubusercontent.com/osrf/gazebo/master/tools/images/gazebo_logo.png" alt="Gazebo" style="height:1.5em;vertical-align:middle;background:#fff;border-radius:4px;padding:2px;" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/b/bb/Gazebo_logo.png'"/></span>Gazebo</div>
-          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/OpenCV_Logo_with_text_svg.png" alt="OpenCV" style="height:1.5em;vertical-align:middle;background:#fff;border-radius:4px;padding:2px;" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/2/29/OpenCV_Logo_with_text_svg_version.svg'"/></span>OpenCV</div>
-        </div>
-        <div class="skill-group"><span class="skill-group-title">AI / ML</span>
-          <div class="skill-item"><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" style="height:1.5em;vertical-align:middle;"/></span>Python</div>
-          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg" alt="PyTorch" style="height:1.5em;vertical-align:middle;"/></span>PyTorch</div>
-          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" alt="TensorFlow" style="height:1.5em;vertical-align:middle;"/></span>TensorFlow</div>
-        </div>
-        <div class="skill-group"><span class="skill-group-title">Control & Estimation</span>
-          <div class="skill-item"><span class="skill-icon"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="#a259ff"/><rect x="7" y="7" width="6" height="6" rx="2" fill="#fff"/></svg></span>MPC, PID, LQR</div>
-          <div class="skill-item"><span class="skill-icon"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M2 10 Q6 2 10 10 T18 10" stroke="#7fdbff" stroke-width="2" fill="none"/><circle cx="10" cy="10" r="2" fill="#a259ff"/></svg></span>Kalman Filters</div>
-        </div>
-        <div class="skill-group"><span class="skill-group-title">Simulation & Mapping</span>
-          <div class="skill-item"><span class="skill-icon"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="3" y="7" width="14" height="6" rx="3" fill="#0ff" opacity="0.7"/><circle cx="10" cy="10" r="3" fill="#a259ff"/></svg></span>SLAM</div>
-          <div class="skill-item"><span class="skill-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="MATLAB" style="height:1.5em;vertical-align:middle;background:#fff;border-radius:4px;padding:2px;" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/6/6a/Matlab_Logo.png'"/></span>MATLAB</div>
-        </div>
-        <div class="skill-group"><span class="skill-group-title">Programming</span>
-          <div class="skill-item"><span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" style="height:1.5em;vertical-align:middle;"/></span>C++</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Section Divider -->
-  <div class="section-divider">
-    <svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 20 Q 720 60 1440 20" stroke="#7fdbff" stroke-width="3" fill="none"/>
-    </svg>
-  </div>
-
-  <!-- Tech Stack Section -->
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title"><i class="ph ph-gear"></i> Tech Stack</h2>
-      <div class="tech-stack-list">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/ROS_logo.svg" alt="ROS" class="tech-logo" style="background:#fff;border-radius:8px;padding:4px;max-height:40px;" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/ros/rosdistro/master/ros_logo.png'" />
-        <img src="https://raw.githubusercontent.com/osrf/gazebo/master/tools/images/gazebo_logo.png" alt="Gazebo" class="tech-logo" style="background:#fff;border-radius:8px;padding:4px;max-height:40px;" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/b/bb/Gazebo_logo.png'" />
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="MATLAB" class="tech-logo" style="background:#fff;border-radius:8px;padding:4px;max-height:40px;" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/6/6a/Matlab_Logo.png'" />
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" alt="TensorFlow" class="tech-logo" style="background:#fff;border-radius:8px;padding:4px;max-height:40px;" />
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg" alt="PyTorch" class="tech-logo" style="background:#fff;border-radius:8px;padding:4px;max-height:40px;" />
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/OpenCV_Logo_with_text_svg.png" alt="OpenCV" class="tech-logo" style="background:#fff;border-radius:8px;padding:4px;max-height:40px;" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/2/29/OpenCV_Logo_with_text_svg_version.svg'" />
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title"><i class="ph ph-book-open"></i> Publications & Blog</h2>
-      <div class="publications">
-        <p>Coming soon: Articles, research papers, and AI insights.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title"><i class="ph ph-envelope"></i> Contact</h2>
-      <form class="contact-form" action="https://formspree.io/f/xayrjzqg" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-      <div class="has-text-centered">
-        <a class="email-btn" href="mailto:karthikpythireddi@gmail.com"><i class="ph ph-paper-plane"></i> Email Me</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section has-text-centered">
-    <div class="container">
-      <a href="https://buymeacoffee.com/karthikpythireddi" target="_blank">
-        <img class="button-img" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee button" width="162" height="45" title="Buy Me A Coffee" />
+    <p class="hero-bio">
+      I build <strong>autonomous driving systems</strong> and <strong>robotic intelligence</strong>. Currently at
+      <strong>NVIDIA</strong> working on L2++/L3 autonomy for customers like Mercedes-Benz and Jaguar Land Rover,
+      and pursuing my MS in Electrical Engineering with a focus on <strong>AI &amp; Robotics</strong> at
+      <strong>Stanford University</strong>. My work spans ML-based test prediction, simulation frameworks
+      using NVIDIA Cosmos, and safety-critical AV validation. Previously shipped autonomy at
+      Motional (Hyundai-Aptiv JV) and DiDi Labs.
+    </p>
+    <div class="hero-links">
+      <a href="resume.pdf" download class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+        Resume
       </a>
-      <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank">
-        <img class="button-img" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn profile for Karthik Pythireddi" width="45" height="45" title="LinkedIn" />
+      <a href="https://github.com/karthikpythireddi" target="_blank" class="btn btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
       </a>
-      <a class="button is-link" href="resume.pdf" download>Download Resume</a>
+      <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank" class="btn btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 01.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:karthikpythireddi@gmail.com" class="btn btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+        Email
+      </a>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        © 2025 Karthik Pythireddi |
-        <a href="https://github.com/karthikpythireddi" target="_blank" title="GitHub">GitHub</a> |
-        <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank" title="LinkedIn">LinkedIn</a>
-      </p>
-      <p>
-        <a href="#top" title="Back to top">Back to top ↑</a>
-      </p>
-      <p style="font-size:0.95em;color:var(--accent2);margin-top:0.5em;">
-        Privacy-friendly analytics by <a href="https://plausible.io/" target="_blank" title="Plausible Analytics">Plausible</a>
-      </p>
+  <div class="section-divider"><hr /></div>
+
+  <!-- Experience -->
+  <section class="section fade-in" id="experience">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2>Experience</h2>
     </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Aug 2021 &mdash; Present</div>
+      <div class="exp-content">
+        <h3>Senior Staff System Integration &amp; Test Engineer &mdash; Autonomous Driving</h3>
+        <div class="exp-company">NVIDIA</div>
+        <div class="exp-location">Santa Clara, CA</div>
+        <ul class="exp-bullets">
+          <li>Developed an ML-based prediction tool that identifies high-risk test cases from historical test data and bug patterns across modules</li>
+          <li>Working on L2++ and L3 autonomous driving systems for OEM customers including Mercedes-Benz and Jaguar Land Rover</li>
+          <li>Led safety testing on autonomous driving systems to ensure compliance with regulatory guidelines</li>
+          <li>Developed testing and validation approaches for reasoning models including Alpamayo</li>
+          <li>Built In-Car to Sim pipeline for generating simulation use cases from real-world driving data</li>
+          <li>Designed simulation testing framework for in-vehicle data using Cosmos-predict and Cosmos transfer frameworks</li>
+          <li>Validated degradation of sensor modules including Camera, Radar, and IMU</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Apr 2021 &mdash; Aug 2021</div>
+      <div class="exp-content">
+        <h3>Autonomous Driving Systems Engineer</h3>
+        <div class="exp-company">DiDi Labs</div>
+        <div class="exp-location">Mountain View, CA</div>
+        <ul class="exp-bullets">
+          <li>Developed autonomy feature test cases for Planning and Controls modules</li>
+          <li>Defined metrics and simulation requirements for autonomy features</li>
+          <li>Automated data analysis pipelines for offboard monitoring systems</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Feb 2018 &mdash; Apr 2021</div>
+      <div class="exp-content">
+        <h3>Autonomous Driving Systems Test &amp; Verification Engineer</h3>
+        <div class="exp-company">Motional (Hyundai-Aptiv Joint Venture)</div>
+        <div class="exp-location">Boston, MA &middot; Las Vegas, NV</div>
+        <ul class="exp-bullets">
+          <li>Stress-tested planning and controls features (U-turns, lane changes, circumvention) on the Las Vegas Strip before Lyft partnership launch</li>
+          <li>Drove highway autonomy testing from Las Vegas to the California-Nevada border on a BMW platform</li>
+          <li>Led vehicle systems bring-up on 3 platforms (BMW, Pacifica, and next-gen), including sensor firmware, LiDAR/camera calibration, and CAN bus integration</li>
+          <li>Built cloud simulation pipelines with multi-ego scenarios, vehicle dynamics models, and automated KPI extraction for comfort metrics</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jun 2017 &mdash; Aug 2017</div>
+      <div class="exp-content">
+        <h3>Ride Controls Engineering Intern</h3>
+        <div class="exp-company">Walt Disney Imagineering</div>
+        <div class="exp-location">Glendale, CA</div>
+        <ul class="exp-bullets">
+          <li>Built an Automated Guided Vehicle (AGV) for Disney R&D, handling BOM preparation, electrical design review, procurement, and hands-on assembly</li>
+          <li>Reviewed hardware designs for ride control systems and supported PLC automation for the Marceline attraction</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jan 2017 &mdash; Jun 2017</div>
+      <div class="exp-content">
+        <h3>Robotics Engineer Intern</h3>
+        <div class="exp-company">Berry Global</div>
+        <div class="exp-location">Macedon, NY</div>
+        <ul class="exp-bullets">
+          <li>Led FANUC robot repair, maintenance, and programming documentation for the Converting Department</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Sep 2016 &mdash; Dec 2016</div>
+      <div class="exp-content">
+        <h3>Product Engineer Intern</h3>
+        <div class="exp-company">ON Semiconductor</div>
+        <div class="exp-location">East Greenwich, RI</div>
+        <ul class="exp-bullets">
+          <li>Conducted yield analysis, failure analysis, 8D/5-Why investigations, and circuit analysis for automotive semiconductor devices</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr /></div>
+
+  <!-- Education -->
+  <section class="section fade-in" id="education">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2>Education</h2>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-date">2025 &mdash; 2026</div>
+      <div class="edu-content">
+        <h3>Stanford University</h3>
+        <div class="edu-degree">M.S. in Electrical Engineering &mdash; AI &amp; Robotics</div>
+        <div class="edu-detail">GPA: 3.4 / 4.00 &middot; Expected Dec 2026</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-date">2015 &mdash; 2017</div>
+      <div class="edu-content">
+        <h3>Rochester Institute of Technology</h3>
+        <div class="edu-degree">M.S. in Electrical Engineering &mdash; Control Systems</div>
+        <div class="edu-detail">GPA: 3.73 / 4.00</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-date">2010 &mdash; 2014</div>
+      <div class="edu-content">
+        <h3>Gitam University</h3>
+        <div class="edu-degree">B.Tech in Electronics &amp; Communication Engineering</div>
+        <div class="edu-detail">GPA: 3.1 / 4.00</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr /></div>
+
+  <!-- Projects -->
+  <section class="section fade-in" id="projects">
+    <div class="section-header">
+      <span class="section-label">03</span>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="project-grid">
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Preference-Based Trajectory Optimization for Robotics Control</h3>
+        <div class="project-tags">
+          <span class="tag">RLHF</span>
+          <span class="tag">PPO</span>
+          <span class="tag">DPO</span>
+          <span class="tag">DPOP</span>
+        </div>
+        <p>Benchmarked preference-based RL methods for robotic manipulation policies in continuous control environments across MetaWorld, RoboCasa, RoboSuite, and LIBERO.</p>
+        <a class="project-link" href="https://github.com/karthikpythireddi/policylearning_from_trajectory_preferences" target="_blank">LIBERO experiments</a>
+        &nbsp;&middot;&nbsp;
+        <a class="project-link" href="https://github.com/karthikpythireddi/cs234_robocasa" target="_blank">RoboCasa experiments</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Indoor Scene Understanding &mdash; 2D &amp; 3D Segmentation</h3>
+        <div class="project-tags">
+          <span class="tag">DeepLabV3+</span>
+          <span class="tag">SegFormer</span>
+          <span class="tag">3D U-Net</span>
+          <span class="tag">RGB-D</span>
+        </div>
+        <p>Multi-stage perception pipeline combining RGB and depth cues on ScanNet. Trained 3D U-Net for voxel-level semantic labeling using MASt3R-based depth estimation.</p>
+        <a class="project-link" href="https://github.com/karthikpythireddi/CS231N_Final_Project" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Model-Free RL for On-Demand Delivery</h3>
+        <div class="project-tags">
+          <span class="tag">Q-Learning</span>
+          <span class="tag">MDP</span>
+          <span class="tag">Multi-Agent</span>
+          <span class="tag">Julia</span>
+        </div>
+        <p>Modeled DoorDash delivery as an MDP, implemented Q-learning with &epsilon;-greedy exploration, and analyzed discount factors and exploration rates on convergence.</p>
+        <a class="project-link" href="https://github.com/karthikpythireddi/AA228_CS238_Decision_Making_Under_Uncertainity" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Lane Keeping &mdash; iLQR + MPC</h3>
+        <div class="project-tags">
+          <span class="tag">MPC</span>
+          <span class="tag">iLQR</span>
+          <span class="tag">Bicycle Model</span>
+          <span class="tag">Python</span>
+        </div>
+        <p>Autonomous lane-keeping using MPC initialized by iLQR trajectory optimization on a nonlinear bicycle model, demonstrating stable tracking on curvy roads.</p>
+        <a class="project-link" href="https://github.com/karthikpythireddi/AA203_Final_Project" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <h3>EKF for Dead Reckoning</h3>
+        <div class="project-tags">
+          <span class="tag">Kalman Filter</span>
+          <span class="tag">IMU</span>
+          <span class="tag">Sensor Fusion</span>
+        </div>
+        <p>Implemented Extended Kalman Filter for ground robot state estimation using IMU and star tracker sensors, evaluating performance in dead reckoning and sensor fusion scenarios.</p>
+        <a class="project-link" href="https://github.com/karthikpythireddi/AA273_StateEstimation_and_filtering_for_RoboticPerception" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <h3>Sim2Real for Robotics &mdash; Paper Review</h3>
+        <div class="project-tags">
+          <span class="tag">Sim2Real</span>
+          <span class="tag">Robot Perception</span>
+          <span class="tag">Survey</span>
+        </div>
+        <p>Comprehensive review of sim-to-real transfer methods for robotic perception, covering domain adaptation, domain randomization, and transfer learning approaches.</p>
+        <a class="project-link" href="https://github.com/karthikpythireddi/EE227_Robot_Perception" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr /></div>
+
+  <!-- Skills -->
+  <section class="section fade-in" id="skills">
+    <div class="section-header">
+      <span class="section-label">04</span>
+      <h2>Skills</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Programming</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PyTorch</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Reinforcement Learning</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">RLHF</span>
+          <span class="skill-tag">PPO</span>
+          <span class="skill-tag">DPO</span>
+          <span class="skill-tag">Behavior Cloning</span>
+          <span class="skill-tag">Preference Optimization</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Robotics &amp; Control</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">MPC</span>
+          <span class="skill-tag">iLQR</span>
+          <span class="skill-tag">State Estimation</span>
+          <span class="skill-tag">Sensor Fusion</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Machine Learning</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">Transformers</span>
+          <span class="skill-tag">RNNs</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Simulation &amp; Environments</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">MetaWorld</span>
+          <span class="skill-tag">RoboSuite</span>
+          <span class="skill-tag">LIBERO</span>
+          <span class="skill-tag">Isaac Groot</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Perception</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Semantic Segmentation</span>
+          <span class="skill-tag">RGB-D Vision</span>
+          <span class="skill-tag">3D Scene Understanding</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2.5rem;">
+      <h3 style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 0.75rem;">Stanford Coursework</h3>
+      <div class="coursework-list">
+        <span class="course-tag">Reinforcement Learning</span>
+        <span class="course-tag">Deep Learning for Computer Vision</span>
+        <span class="course-tag">Robot Perception</span>
+        <span class="course-tag">Machine Learning</span>
+        <span class="course-tag">Decision Making Under Uncertainty</span>
+        <span class="course-tag">State Estimation &amp; Filtering</span>
+        <span class="course-tag">Convex Optimization</span>
+        <span class="course-tag">Learning-Based Optimal Control</span>
+        <span class="course-tag">Modern Control Systems</span>
+        <span class="course-tag">Probability for Computer Scientists</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr /></div>
+
+  <!-- Contact -->
+  <section class="section fade-in" id="contact">
+    <div class="section-header">
+      <span class="section-label">05</span>
+      <h2>Get in Touch</h2>
+    </div>
+
+    <div class="contact-grid">
+      <a href="mailto:karthikpythireddi@gmail.com" class="contact-card" style="text-decoration:none;">
+        <div class="icon">&#9993;</div>
+        <div class="label">Email</div>
+        <div class="value">karthikpythireddi@gmail.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/karthikpythireddi/" target="_blank" class="contact-card" style="text-decoration:none;">
+        <div class="icon">&#128279;</div>
+        <div class="label">LinkedIn</div>
+        <div class="value">in/karthikpythireddi</div>
+      </a>
+      <a href="https://github.com/karthikpythireddi" target="_blank" class="contact-card" style="text-decoration:none;">
+        <div class="icon">&#128187;</div>
+        <div class="label">GitHub</div>
+        <div class="value">karthikpythireddi</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Karthik Pythireddi &middot; Built with care</p>
   </footer>
+
   <script>
-    // Theme toggle logic
-    const themeToggle = document.getElementById('themeToggle');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    function setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      themeToggle.innerHTML = theme === 'dark' ? '<i class="ph ph-moon"></i>' : '<i class="ph ph-sun"></i>';
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      toggle.innerHTML = t === 'dark' ? '&#9789;' : '&#9788;';
     }
-    const savedTheme = localStorage.getItem('theme');
-    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
-    themeToggle.onclick = () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      setTheme(current === 'dark' ? 'light' : 'dark');
+    const saved = localStorage.getItem('theme');
+    setTheme(saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    toggle.onclick = () => {
+      const c = document.documentElement.getAttribute('data-theme');
+      setTheme(c === 'dark' ? 'light' : 'dark');
     };
-    // tsparticles config
-    tsParticles.load('tsparticles', {
-      fpsLimit: 60,
-      background: { color: 'transparent' },
-      particles: {
-        number: { value: 60, density: { enable: true, value_area: 800 } },
-        color: { value: ["#7fdbff", "#a259ff"] },
-        shape: { type: "circle" },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        links: {
-          enable: true,
-          distance: 120,
-          color: "#7fdbff",
-          opacity: 0.3,
-          width: 1.2
-        },
-        move: {
-          enable: true,
-          speed: 1.2,
-          direction: "none",
-          random: false,
-          straight: false,
-          outModes: { default: "out" }
-        }
-      },
-      interactivity: {
-        events: {
-          onHover: { enable: true, mode: "repulse" },
-          onClick: { enable: true, mode: "push" }
-        },
-        modes: {
-          repulse: { distance: 80, duration: 0.4 },
-          push: { quantity: 4 }
-        }
-      },
-      detectRetina: true
-    });
-    // Contact form success message
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-      contactForm.addEventListener('submit', function(e) {
-        setTimeout(function() {
-          contactForm.innerHTML = '<div style="color:var(--accent2);font-family:Orbitron,Roboto,sans-serif;font-size:1.2em;text-align:center;">Thank you! Your message has been sent.</div>';
-        }, 500);
-      });
-    }
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    mobileBtn.onclick = () => mobileNav.classList.toggle('open');
+    function closeMobile() { mobileNav.classList.remove('open'); }
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
