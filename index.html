@@ -269,33 +269,41 @@
       fill: var(--bg-card-hover);
       stroke: var(--border);
       stroke-width: 0.6;
-      transition: fill 0.4s;
+      transition: fill 0.4s, stroke 0.4s, stroke-width 0.4s;
     }
     .us-map-host .state.is-active {
-      fill: var(--accent-subtle);
-      stroke: var(--accent);
+      fill: var(--accent);
+      stroke: var(--accent-hover);
+      stroke-width: 1.4;
+    }
+    .map-pin-ring {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
     }
     .map-pin {
-      fill: var(--text-secondary);
-      opacity: 0.35;
-      transition: fill 0.35s, opacity 0.35s, r 0.35s;
-    }
-    .map-pin.active {
-      fill: var(--accent);
-      opacity: 1;
+      fill: #ef4444;
+      transition: r 0.35s;
     }
     .map-pulse {
-      fill: var(--accent);
-      opacity: 0;
-    }
-    .map-pulse.active {
-      animation: mapPulse 1.8s ease-out infinite;
+      fill: #ef4444;
       transform-origin: center;
       transform-box: fill-box;
+      animation: mapPulse 1.6s ease-out infinite;
     }
     @keyframes mapPulse {
-      0%   { opacity: 0.55; transform: scale(1); }
-      100% { opacity: 0;    transform: scale(3.5); }
+      0%   { opacity: 0.7; transform: scale(1); }
+      100% { opacity: 0;   transform: scale(4); }
+    }
+    .map-pin-label {
+      fill: var(--text);
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 600;
+      paint-order: stroke;
+      stroke: var(--bg-card);
+      stroke-width: 4px;
+      stroke-linejoin: round;
     }
     .exp-map-label {
       font-family: var(--mono);
@@ -605,7 +613,7 @@
   <!-- Navigation -->
   <nav>
     <div class="nav-inner">
-      <span class="nav-logo">KP</span>
+      <span class="nav-logo"></span>
       <div class="nav-links">
         <a href="#experience">Experience</a>
         <a href="#education">Education</a>
@@ -1040,12 +1048,12 @@
 
     // Experience -> US map: state highlighting + pin overlay
     const locationMap = {
-      nvidia:   { states: ['ca'],       pins: [{x: 60,  y: 275}], label: 'Santa Clara, CA' },
-      didi:     { states: ['ca'],       pins: [{x: 60,  y: 275}], label: 'Mountain View, CA' },
-      motional: { states: ['ma','nv'],  pins: [{x: 905, y: 178}, {x: 150, y: 335}], label: 'Boston, MA \u00B7 Las Vegas, NV' },
-      disney:   { states: ['ca'],       pins: [{x: 90,  y: 380}], label: 'Glendale, CA' },
-      berry:    { states: ['ny'],       pins: [{x: 810, y: 178}], label: 'Macedon, NY' },
-      onsemi:   { states: ['ri'],       pins: [{x: 902, y: 188}], label: 'East Greenwich, RI' }
+      nvidia:   { states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Santa Clara'}],     label: 'Santa Clara, CA' },
+      didi:     { states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Mountain View'}],   label: 'Mountain View, CA' },
+      motional: { states: ['ma','nv'],  pins: [{x: 905, y: 178, label: 'Boston', labelDx: -14, labelAnchor: 'end'}, {x: 150, y: 335, label: 'Las Vegas'}], label: 'Boston, MA \u00B7 Las Vegas, NV' },
+      disney:   { states: ['ca'],       pins: [{x: 90,  y: 380, label: 'Glendale'}],        label: 'Glendale, CA' },
+      berry:    { states: ['ny'],       pins: [{x: 810, y: 178, label: 'Macedon, NY'}],     label: 'Macedon, NY' },
+      onsemi:   { states: ['ri'],       pins: [{x: 902, y: 188, label: 'E. Greenwich', labelDx: -14, labelAnchor: 'end'}], label: 'East Greenwich, RI' }
     };
     const expItems = document.querySelectorAll('.exp-item[data-loc-key]');
     const mapLabel = document.getElementById('expMapLabel');
@@ -1066,12 +1074,25 @@
       entry.pins.forEach(pin => {
         const pulse = document.createElementNS(SVG_NS, 'circle');
         pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
-        pulse.setAttribute('r', 5); pulse.setAttribute('class', 'map-pulse active');
+        pulse.setAttribute('r', 8); pulse.setAttribute('class', 'map-pulse');
+        const ring = document.createElementNS(SVG_NS, 'circle');
+        ring.setAttribute('cx', pin.x); ring.setAttribute('cy', pin.y);
+        ring.setAttribute('r', 9); ring.setAttribute('class', 'map-pin-ring');
         const dot = document.createElementNS(SVG_NS, 'circle');
         dot.setAttribute('cx', pin.x); dot.setAttribute('cy', pin.y);
-        dot.setAttribute('r', 5); dot.setAttribute('class', 'map-pin active');
+        dot.setAttribute('r', 7); dot.setAttribute('class', 'map-pin');
         pinLayer.appendChild(pulse);
+        pinLayer.appendChild(ring);
         pinLayer.appendChild(dot);
+        if (pin.label) {
+          const text = document.createElementNS(SVG_NS, 'text');
+          text.setAttribute('x', pin.x + (pin.labelDx || 14));
+          text.setAttribute('y', pin.y + (pin.labelDy || 5));
+          text.setAttribute('class', 'map-pin-label');
+          text.setAttribute('text-anchor', pin.labelAnchor || 'start');
+          text.textContent = pin.label;
+          pinLayer.appendChild(text);
+        }
       });
       mapLabel.textContent = entry.label;
     }
