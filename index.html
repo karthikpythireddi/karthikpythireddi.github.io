@@ -257,13 +257,18 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1rem 1rem 0.75rem;
+      overflow: hidden;
     }
-    .us-map-host { width: 100%; }
+    .us-map-host {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
     .us-map-host svg {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      overflow: visible;
+      overflow: hidden;
     }
     .us-map-host .state {
       fill: var(--bg-card-hover);
@@ -1119,6 +1124,8 @@
       function showMap(name) {
         if (currentMap === name) return;
         Object.entries(svgs).forEach(([n, el]) => el.style.display = (n === name ? 'block' : 'none'));
+        const def = DEFAULT_VB[name];
+        host.style.aspectRatio = def[2] + ' / ' + def[3];
         currentMap = name;
       }
 
@@ -1218,7 +1225,15 @@
         wrap.innerHTML = svgText;
         const svg = wrap.querySelector('svg');
         if (!svg) return;
+        const def = DEFAULT_VB[name];
+        svg.removeAttribute('width');
+        svg.removeAttribute('height');
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svg.setAttribute('viewBox', def.join(' '));
         svg.style.display = 'none';
+        svg.style.position = 'absolute';
+        svg.style.top = '0';
+        svg.style.left = '0';
         host.appendChild(svg);
         const pinLayer = document.createElementNS(SVG_NS, 'g');
         pinLayer.setAttribute('class', 'pin-layer');
