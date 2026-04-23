@@ -222,6 +222,88 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ── Location badge (hero) ── */
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.9rem;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--bg-card);
+    }
+    .location-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-subtle);
+    }
+
+    /* ── Experience with map ── */
+    .exp-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .exp-map-wrap {
+      position: sticky;
+      top: 80px;
+    }
+    .exp-map {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1rem 0.75rem;
+    }
+    .exp-map svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .exp-map-state {
+      fill: var(--bg-card-hover);
+      stroke: var(--border);
+      stroke-width: 1.5;
+    }
+    .map-pin {
+      fill: var(--text-secondary);
+      opacity: 0.35;
+      transition: fill 0.35s, opacity 0.35s, r 0.35s;
+    }
+    .map-pin.active {
+      fill: var(--accent);
+      opacity: 1;
+    }
+    .map-pulse {
+      fill: var(--accent);
+      opacity: 0;
+    }
+    .map-pulse.active {
+      animation: mapPulse 1.8s ease-out infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    @keyframes mapPulse {
+      0%   { opacity: 0.55; transform: scale(1); }
+      100% { opacity: 0;    transform: scale(3.5); }
+    }
+    .exp-map-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-align: center;
+      padding-top: 0.6rem;
+      min-height: 1.1rem;
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 900px) {
+      .exp-layout { grid-template-columns: 1fr; gap: 0; }
+      .exp-map-wrap { display: none; }
+    }
+
     /* ── Experience ── */
     .exp-item {
       display: grid;
@@ -549,6 +631,10 @@
       safety-critical AV validation. Previously shipped autonomy at
       Motional (Hyundai-Aptiv JV) and DiDi Labs.
     </p>
+    <div class="location-badge">
+      <span class="dot"></span>
+      <span>Based in the San Francisco Bay Area</span>
+    </div>
     <div class="hero-links">
       <a href="resume.pdf" download class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
@@ -578,7 +664,10 @@
       <h2>Experience</h2>
     </div>
 
-    <div class="exp-item">
+    <div class="exp-layout">
+    <div class="exp-list">
+
+    <div class="exp-item" data-loc-key="nvidia">
       <div class="exp-date">Aug 2021 &mdash; Present</div>
       <div class="exp-content">
         <h3>Senior Staff System Integration &amp; Test Engineer &mdash; Autonomous Driving</h3>
@@ -592,7 +681,7 @@
       </div>
     </div>
 
-    <div class="exp-item">
+    <div class="exp-item" data-loc-key="didi">
       <div class="exp-date">Apr 2021 &mdash; Aug 2021</div>
       <div class="exp-content">
         <h3>Autonomous Driving Systems Engineer</h3>
@@ -605,7 +694,7 @@
       </div>
     </div>
 
-    <div class="exp-item">
+    <div class="exp-item" data-loc-key="motional">
       <div class="exp-date">Feb 2018 &mdash; Apr 2021</div>
       <div class="exp-content">
         <h3>Autonomous Driving Systems Test &amp; Verification Engineer</h3>
@@ -619,7 +708,7 @@
       </div>
     </div>
 
-    <div class="exp-item">
+    <div class="exp-item" data-loc-key="disney">
       <div class="exp-date">Jun 2017 &mdash; Aug 2017</div>
       <div class="exp-content">
         <h3>Ride Controls Engineering Intern</h3>
@@ -631,7 +720,7 @@
       </div>
     </div>
 
-    <div class="exp-item">
+    <div class="exp-item" data-loc-key="berry">
       <div class="exp-date">Jan 2017 &mdash; Jun 2017</div>
       <div class="exp-content">
         <h3>Robotics Engineer Intern</h3>
@@ -643,7 +732,7 @@
       </div>
     </div>
 
-    <div class="exp-item">
+    <div class="exp-item" data-loc-key="onsemi">
       <div class="exp-date">Sep 2016 &mdash; Dec 2016</div>
       <div class="exp-content">
         <h3>Product Engineer Intern</h3>
@@ -654,6 +743,50 @@
         </ul>
       </div>
     </div>
+
+    </div><!-- /.exp-list -->
+
+    <aside class="exp-map-wrap" aria-hidden="true">
+      <div class="exp-map">
+        <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US map of work locations">
+          <path class="exp-map-state" d="M 100,210 C 130,190 180,175 240,165 C 310,152 400,144 500,140 C 600,138 690,146 770,160 C 830,172 875,188 900,210 C 915,230 920,255 910,285 C 898,315 880,345 858,370 C 838,390 815,408 790,420 C 760,432 725,440 690,442 C 660,444 640,452 625,475 C 615,495 600,510 582,505 C 565,498 552,478 538,465 C 518,452 490,448 460,452 C 425,458 390,468 355,470 C 320,470 285,462 250,445 C 215,425 185,398 160,368 C 138,338 120,305 108,272 C 98,245 95,225 100,210 Z" />
+
+          <!-- Bay Area (NVIDIA, DiDi) -->
+          <g data-loc="bay-area">
+            <circle class="map-pulse" cx="115" cy="290" r="6" />
+            <circle class="map-pin" cx="115" cy="290" r="5.5" />
+          </g>
+          <!-- Los Angeles (Disney) -->
+          <g data-loc="la">
+            <circle class="map-pulse" cx="155" cy="345" r="6" />
+            <circle class="map-pin" cx="155" cy="345" r="5.5" />
+          </g>
+          <!-- Las Vegas (Motional testing) -->
+          <g data-loc="lv">
+            <circle class="map-pulse" cx="220" cy="325" r="6" />
+            <circle class="map-pin" cx="220" cy="325" r="5.5" />
+          </g>
+          <!-- Boston (Motional HQ) -->
+          <g data-loc="boston">
+            <circle class="map-pulse" cx="870" cy="215" r="6" />
+            <circle class="map-pin" cx="870" cy="215" r="5.5" />
+          </g>
+          <!-- Macedon, NY (Berry) -->
+          <g data-loc="ny">
+            <circle class="map-pulse" cx="815" cy="230" r="6" />
+            <circle class="map-pin" cx="815" cy="230" r="5.5" />
+          </g>
+          <!-- East Greenwich, RI (ON Semi) -->
+          <g data-loc="ri">
+            <circle class="map-pulse" cx="885" cy="225" r="6" />
+            <circle class="map-pin" cx="885" cy="225" r="5.5" />
+          </g>
+        </svg>
+        <div class="exp-map-label" id="expMapLabel">&nbsp;</div>
+      </div>
+    </aside>
+
+    </div><!-- /.exp-layout -->
   </section>
 
   <div class="section-divider"><hr /></div>
@@ -955,6 +1088,44 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Experience -> US map pin highlighting
+    const locationMap = {
+      nvidia:   { pins: ['bay-area'],         label: 'Santa Clara, CA' },
+      didi:     { pins: ['bay-area'],         label: 'Mountain View, CA' },
+      motional: { pins: ['boston', 'lv'],     label: 'Boston, MA \u00B7 Las Vegas, NV' },
+      disney:   { pins: ['la'],               label: 'Glendale, CA' },
+      berry:    { pins: ['ny'],               label: 'Macedon, NY' },
+      onsemi:   { pins: ['ri'],               label: 'East Greenwich, RI' }
+    };
+    const expItems = document.querySelectorAll('.exp-item[data-loc-key]');
+    const pinGroups = document.querySelectorAll('.exp-map svg g[data-loc]');
+    const mapLabel = document.getElementById('expMapLabel');
+
+    function setActiveLocation(key) {
+      const entry = locationMap[key];
+      if (!entry) return;
+      pinGroups.forEach(g => {
+        const isActive = entry.pins.includes(g.dataset.loc);
+        g.querySelectorAll('.map-pin').forEach(p => p.classList.toggle('active', isActive));
+        g.querySelectorAll('.map-pulse').forEach(p => p.classList.toggle('active', isActive));
+      });
+      mapLabel.textContent = entry.label;
+    }
+
+    if (pinGroups.length && expItems.length) {
+      const visibility = new Map();
+      const mapObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => visibility.set(e.target, e.intersectionRatio));
+        let bestKey = null, bestRatio = 0;
+        visibility.forEach((ratio, el) => {
+          if (ratio > bestRatio) { bestRatio = ratio; bestKey = el.dataset.locKey; }
+        });
+        if (bestKey) setActiveLocation(bestKey);
+      }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+      expItems.forEach(el => mapObserver.observe(el));
+      setActiveLocation('nvidia');
+    }
   </script>
 </body>
 </html>
