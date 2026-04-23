@@ -265,6 +265,7 @@
       display: block;
       overflow: visible;
     }
+    /* US flag palette */
     .us-map-host .state {
       fill: var(--bg-card-hover);
       stroke: var(--border);
@@ -272,21 +273,21 @@
       transition: fill 0.4s, stroke 0.4s, stroke-width 0.4s;
     }
     .us-map-host .state.is-active {
-      fill: var(--accent);
-      stroke: var(--accent-hover);
-      stroke-width: 1.4;
+      fill: #3C3B6E;     /* Old Glory Blue */
+      stroke: #FFFFFF;
+      stroke-width: 1.6;
     }
     .map-pin-ring {
-      fill: none;
-      stroke: #fff;
-      stroke-width: 2.5;
+      fill: #FFFFFF;
+      stroke: #B22234;   /* Old Glory Red */
+      stroke-width: 1.5;
     }
     .map-pin {
-      fill: #ef4444;
+      fill: #B22234;     /* Old Glory Red */
       transition: r 0.35s;
     }
     .map-pulse {
-      fill: #ef4444;
+      fill: #B22234;
       transform-origin: center;
       transform-box: fill-box;
       animation: mapPulse 1.6s ease-out infinite;
@@ -763,7 +764,10 @@
       <h2>Education</h2>
     </div>
 
-    <div class="edu-item">
+    <div class="exp-layout">
+    <div class="exp-list">
+
+    <div class="edu-item" data-loc-key="stanford">
       <div class="edu-date">2025 &mdash; 2026</div>
       <div class="edu-content">
         <h3>Stanford University</h3>
@@ -772,7 +776,7 @@
       </div>
     </div>
 
-    <div class="edu-item">
+    <div class="edu-item" data-loc-key="rit">
       <div class="edu-date">2015 &mdash; 2017</div>
       <div class="edu-content">
         <h3>Rochester Institute of Technology</h3>
@@ -781,7 +785,7 @@
       </div>
     </div>
 
-    <div class="edu-item">
+    <div class="edu-item" data-loc-key="gitam">
       <div class="edu-date">2010 &mdash; 2014</div>
       <div class="edu-content">
         <h3>Gitam University</h3>
@@ -789,6 +793,17 @@
         <div class="edu-detail">GPA: 3.1 / 4.00</div>
       </div>
     </div>
+
+    </div><!-- /.exp-list -->
+
+    <aside class="exp-map-wrap" aria-hidden="true">
+      <div class="exp-map">
+        <div id="eduMap" class="us-map-host" aria-label="US map of education locations"></div>
+        <div class="exp-map-label" id="eduMapLabel">&nbsp;</div>
+      </div>
+    </aside>
+
+    </div><!-- /.exp-layout -->
   </section>
 
   <div class="section-divider"><hr /></div>
@@ -1046,8 +1061,8 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Experience -> US map: state highlighting + pin overlay
-    const locationMap = {
+    // Sticky US map: state highlighting + pin overlay (used by Experience and Education)
+    const expLocations = {
       nvidia:   { states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Santa Clara'}],     label: 'Santa Clara, CA' },
       didi:     { states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Mountain View'}],   label: 'Mountain View, CA' },
       motional: { states: ['ma','nv'],  pins: [{x: 905, y: 178, label: 'Boston', labelDx: -14, labelAnchor: 'end'}, {x: 150, y: 335, label: 'Las Vegas'}], label: 'Boston, MA \u00B7 Las Vegas, NV' },
@@ -1055,72 +1070,84 @@
       berry:    { states: ['ny'],       pins: [{x: 810, y: 178, label: 'Macedon, NY'}],     label: 'Macedon, NY' },
       onsemi:   { states: ['ri'],       pins: [{x: 902, y: 188, label: 'E. Greenwich', labelDx: -14, labelAnchor: 'end'}], label: 'East Greenwich, RI' }
     };
-    const expItems = document.querySelectorAll('.exp-item[data-loc-key]');
-    const mapLabel = document.getElementById('expMapLabel');
-    const mapHost  = document.getElementById('usMap');
-    let mapSvg = null, pinLayer = null;
+    const eduLocations = {
+      stanford: { states: ['ca'],       pins: [{x: 60,  y: 280, label: 'Stanford'}],        label: 'Stanford, CA' },
+      rit:      { states: ['ny'],       pins: [{x: 808, y: 178, label: 'Rochester'}],       label: 'Rochester, NY' },
+      gitam:    { states: [],           pins: [], label: 'Visakhapatnam, India \u00B7 international' }
+    };
     const SVG_NS = 'http://www.w3.org/2000/svg';
 
-    function setActiveLocation(key) {
-      if (!mapSvg) return;
-      const entry = locationMap[key];
-      if (!entry) return;
-      mapSvg.querySelectorAll('.state').forEach(p => p.classList.remove('is-active'));
-      entry.states.forEach(s => {
-        const el = mapSvg.querySelector('.st-' + s);
-        if (el) el.classList.add('is-active');
-      });
-      while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
-      entry.pins.forEach(pin => {
-        const pulse = document.createElementNS(SVG_NS, 'circle');
-        pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
-        pulse.setAttribute('r', 8); pulse.setAttribute('class', 'map-pulse');
-        const ring = document.createElementNS(SVG_NS, 'circle');
-        ring.setAttribute('cx', pin.x); ring.setAttribute('cy', pin.y);
-        ring.setAttribute('r', 9); ring.setAttribute('class', 'map-pin-ring');
-        const dot = document.createElementNS(SVG_NS, 'circle');
-        dot.setAttribute('cx', pin.x); dot.setAttribute('cy', pin.y);
-        dot.setAttribute('r', 7); dot.setAttribute('class', 'map-pin');
-        pinLayer.appendChild(pulse);
-        pinLayer.appendChild(ring);
-        pinLayer.appendChild(dot);
-        if (pin.label) {
-          const text = document.createElementNS(SVG_NS, 'text');
-          text.setAttribute('x', pin.x + (pin.labelDx || 14));
-          text.setAttribute('y', pin.y + (pin.labelDy || 5));
-          text.setAttribute('class', 'map-pin-label');
-          text.setAttribute('text-anchor', pin.labelAnchor || 'start');
-          text.textContent = pin.label;
-          pinLayer.appendChild(text);
-        }
-      });
-      mapLabel.textContent = entry.label;
-    }
+    function buildMap(hostId, labelId, locations, defaultKey, itemSelector) {
+      const host  = document.getElementById(hostId);
+      const label = document.getElementById(labelId);
+      if (!host || !label) return;
+      const items = document.querySelectorAll(itemSelector);
+      if (!items.length) return;
 
-    function initMap(svgText) {
-      mapHost.innerHTML = svgText;
-      mapSvg = mapHost.querySelector('svg');
-      if (!mapSvg) return;
-      pinLayer = document.createElementNS(SVG_NS, 'g');
-      pinLayer.setAttribute('class', 'pin-layer');
-      mapSvg.appendChild(pinLayer);
+      let svg = null, pinLayer = null;
 
-      const visibility = new Map();
-      const mapObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => visibility.set(e.target, e.intersectionRatio));
-        let bestKey = null, bestRatio = 0;
-        visibility.forEach((ratio, el) => {
-          if (ratio > bestRatio) { bestRatio = ratio; bestKey = el.dataset.locKey; }
+      function setActive(key) {
+        if (!svg) return;
+        const entry = locations[key];
+        if (!entry) return;
+        svg.querySelectorAll('.state').forEach(p => p.classList.remove('is-active'));
+        entry.states.forEach(s => {
+          const el = svg.querySelector('.st-' + s);
+          if (el) el.classList.add('is-active');
         });
-        if (bestKey) setActiveLocation(bestKey);
-      }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
-      expItems.forEach(el => mapObserver.observe(el));
-      setActiveLocation('nvidia');
+        while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
+        entry.pins.forEach(pin => {
+          const pulse = document.createElementNS(SVG_NS, 'circle');
+          pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
+          pulse.setAttribute('r', 8); pulse.setAttribute('class', 'map-pulse');
+          const ring = document.createElementNS(SVG_NS, 'circle');
+          ring.setAttribute('cx', pin.x); ring.setAttribute('cy', pin.y);
+          ring.setAttribute('r', 9); ring.setAttribute('class', 'map-pin-ring');
+          const dot = document.createElementNS(SVG_NS, 'circle');
+          dot.setAttribute('cx', pin.x); dot.setAttribute('cy', pin.y);
+          dot.setAttribute('r', 7); dot.setAttribute('class', 'map-pin');
+          pinLayer.appendChild(pulse);
+          pinLayer.appendChild(ring);
+          pinLayer.appendChild(dot);
+          if (pin.label) {
+            const text = document.createElementNS(SVG_NS, 'text');
+            text.setAttribute('x', pin.x + (pin.labelDx || 14));
+            text.setAttribute('y', pin.y + (pin.labelDy || 5));
+            text.setAttribute('class', 'map-pin-label');
+            text.setAttribute('text-anchor', pin.labelAnchor || 'start');
+            text.textContent = pin.label;
+            pinLayer.appendChild(text);
+          }
+        });
+        label.textContent = entry.label;
+      }
+
+      function init(svgText) {
+        host.innerHTML = svgText;
+        svg = host.querySelector('svg');
+        if (!svg) return;
+        pinLayer = document.createElementNS(SVG_NS, 'g');
+        pinLayer.setAttribute('class', 'pin-layer');
+        svg.appendChild(pinLayer);
+
+        const visibility = new Map();
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => visibility.set(e.target, e.intersectionRatio));
+          let bestKey = null, bestRatio = 0;
+          visibility.forEach((ratio, el) => {
+            if (ratio > bestRatio) { bestRatio = ratio; bestKey = el.dataset.locKey; }
+          });
+          if (bestKey) setActive(bestKey);
+        }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+        items.forEach(el => obs.observe(el));
+        setActive(defaultKey);
+      }
+
+      fetch('assets/us-map.svg').then(r => r.text()).then(init).catch(() => {});
     }
 
-    if (mapHost && expItems.length) {
-      fetch('assets/us-map.svg').then(r => r.text()).then(initMap).catch(() => {});
-    }
+    buildMap('usMap',  'expMapLabel', expLocations, 'nvidia',   '.exp-item[data-loc-key]');
+    buildMap('eduMap', 'eduMapLabel', eduLocations, 'stanford', '.edu-item[data-loc-key]');
   </script>
 </body>
 </html>
