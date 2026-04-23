@@ -258,15 +258,22 @@
       border-radius: var(--radius);
       padding: 1rem 1rem 0.75rem;
     }
-    .exp-map svg {
+    .us-map-host { width: 100%; }
+    .us-map-host svg {
       width: 100%;
       height: auto;
       display: block;
+      overflow: visible;
     }
-    .exp-map-state {
+    .us-map-host .state {
       fill: var(--bg-card-hover);
       stroke: var(--border);
-      stroke-width: 1.5;
+      stroke-width: 0.6;
+      transition: fill 0.4s;
+    }
+    .us-map-host .state.is-active {
+      fill: var(--accent-subtle);
+      stroke: var(--accent);
     }
     .map-pin {
       fill: var(--text-secondary);
@@ -356,6 +363,12 @@
       height: 4px;
       background: var(--accent);
       border-radius: 50%;
+    }
+
+    /* ── Talk links ── */
+    .talk-links {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
     }
 
     /* ── Education ── */
@@ -673,11 +686,6 @@
         <h3>Senior Staff System Integration &amp; Test Engineer &mdash; Autonomous Driving</h3>
         <div class="exp-company">NVIDIA</div>
         <div class="exp-location">Santa Clara, CA</div>
-        <ul class="exp-bullets">
-          <li>Working on L2++ and L3 autonomous driving systems for OEM customers including Mercedes-Benz and Jaguar Land Rover</li>
-          <li>Developed an ML-based prediction tool that identifies high-risk test cases from historical test data and bug patterns across modules</li>
-          <li>Led safety testing on autonomous driving systems to ensure compliance with regulatory guidelines</li>
-        </ul>
       </div>
     </div>
 
@@ -687,10 +695,6 @@
         <h3>Autonomous Driving Systems Engineer</h3>
         <div class="exp-company">DiDi Labs</div>
         <div class="exp-location">Mountain View, CA</div>
-        <ul class="exp-bullets">
-          <li>Developed autonomy feature test cases for Planning and Controls modules</li>
-          <li>Defined metrics and simulation requirements for autonomy features</li>
-        </ul>
       </div>
     </div>
 
@@ -700,11 +704,6 @@
         <h3>Autonomous Driving Systems Test &amp; Verification Engineer</h3>
         <div class="exp-company">Motional (Hyundai-Aptiv Joint Venture)</div>
         <div class="exp-location">Boston, MA &middot; Las Vegas, NV</div>
-        <ul class="exp-bullets">
-          <li>Stress-tested planning and controls features (U-turns, lane changes, circumvention) on the Las Vegas Strip before Lyft partnership launch</li>
-          <li>Led vehicle systems bring-up on 3 platforms (BMW, Pacifica, and next-gen), including sensor firmware, LiDAR/camera calibration, and CAN bus integration</li>
-          <li>Built cloud simulation pipelines with multi-ego scenarios, vehicle dynamics models, and automated KPI extraction for comfort metrics</li>
-        </ul>
       </div>
     </div>
 
@@ -714,9 +713,6 @@
         <h3>Ride Controls Engineering Intern</h3>
         <div class="exp-company">Walt Disney Imagineering</div>
         <div class="exp-location">Glendale, CA</div>
-        <ul class="exp-bullets">
-          <li>Built an Automated Guided Vehicle (AGV) for Disney R&D, handling BOM preparation, electrical design review, procurement, and hands-on assembly</li>
-        </ul>
       </div>
     </div>
 
@@ -726,9 +722,6 @@
         <h3>Robotics Engineer Intern</h3>
         <div class="exp-company">Berry Global</div>
         <div class="exp-location">Macedon, NY</div>
-        <ul class="exp-bullets">
-          <li>Led FANUC robot repair, maintenance, and programming documentation for the Converting Department</li>
-        </ul>
       </div>
     </div>
 
@@ -738,9 +731,6 @@
         <h3>Product Engineer Intern</h3>
         <div class="exp-company">ON Semiconductor</div>
         <div class="exp-location">East Greenwich, RI</div>
-        <ul class="exp-bullets">
-          <li>Conducted yield analysis, failure analysis, 8D/5-Why investigations, and circuit analysis for automotive semiconductor devices</li>
-        </ul>
       </div>
     </div>
 
@@ -748,40 +738,7 @@
 
     <aside class="exp-map-wrap" aria-hidden="true">
       <div class="exp-map">
-        <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US map of work locations">
-          <path class="exp-map-state" d="M 100,210 C 130,190 180,175 240,165 C 310,152 400,144 500,140 C 600,138 690,146 770,160 C 830,172 875,188 900,210 C 915,230 920,255 910,285 C 898,315 880,345 858,370 C 838,390 815,408 790,420 C 760,432 725,440 690,442 C 660,444 640,452 625,475 C 615,495 600,510 582,505 C 565,498 552,478 538,465 C 518,452 490,448 460,452 C 425,458 390,468 355,470 C 320,470 285,462 250,445 C 215,425 185,398 160,368 C 138,338 120,305 108,272 C 98,245 95,225 100,210 Z" />
-
-          <!-- Bay Area (NVIDIA, DiDi) -->
-          <g data-loc="bay-area">
-            <circle class="map-pulse" cx="115" cy="290" r="6" />
-            <circle class="map-pin" cx="115" cy="290" r="5.5" />
-          </g>
-          <!-- Los Angeles (Disney) -->
-          <g data-loc="la">
-            <circle class="map-pulse" cx="155" cy="345" r="6" />
-            <circle class="map-pin" cx="155" cy="345" r="5.5" />
-          </g>
-          <!-- Las Vegas (Motional testing) -->
-          <g data-loc="lv">
-            <circle class="map-pulse" cx="220" cy="325" r="6" />
-            <circle class="map-pin" cx="220" cy="325" r="5.5" />
-          </g>
-          <!-- Boston (Motional HQ) -->
-          <g data-loc="boston">
-            <circle class="map-pulse" cx="870" cy="215" r="6" />
-            <circle class="map-pin" cx="870" cy="215" r="5.5" />
-          </g>
-          <!-- Macedon, NY (Berry) -->
-          <g data-loc="ny">
-            <circle class="map-pulse" cx="815" cy="230" r="6" />
-            <circle class="map-pin" cx="815" cy="230" r="5.5" />
-          </g>
-          <!-- East Greenwich, RI (ON Semi) -->
-          <g data-loc="ri">
-            <circle class="map-pulse" cx="885" cy="225" r="6" />
-            <circle class="map-pin" cx="885" cy="225" r="5.5" />
-          </g>
-        </svg>
+        <div id="usMap" class="us-map-host" aria-label="US map of work locations"></div>
         <div class="exp-map-label" id="expMapLabel">&nbsp;</div>
       </div>
     </aside>
@@ -926,11 +883,7 @@
         <h3>Autonomous Driving, Robotics &amp; Physical AI</h3>
         <div class="exp-company">GITAM (Deemed to be University) &middot; IEEE Vizag Bay Section</div>
         <div class="exp-location">Dept. of Electrical, Electronics &amp; Communication Engineering, Visakhapatnam</div>
-        <ul class="exp-bullets">
-          <li>Invited technical talk delivered to students, faculty, and research scholars, hosted jointly with the IEEE Vizag Bay Section and the IEEE Student Branch, GITAM</li>
-          <li>Covered emerging technologies across autonomous driving, robotics, and physical AI, including industry perspectives from NVIDIA</li>
-          <li><a href="talks/gitam_ieee_appreciation.pdf" target="_blank">View Certificate of Appreciation (PDF)</a></li>
-        </ul>
+        <div class="talk-links"><a href="talks/gitam_ieee_appreciation.pdf" target="_blank">View Certificate of Appreciation (PDF) &rarr;</a></div>
       </div>
     </div>
 
@@ -940,11 +893,7 @@
         <h3>Guest Lecture on Reinforcement Learning, AI &amp; ML</h3>
         <div class="exp-company">Avanthi Institute of Engineering and Technology</div>
         <div class="exp-location">Dept. of Electronics &amp; Communication Engineering, Vizianagaram</div>
-        <ul class="exp-bullets">
-          <li>Invited guest lecture delivered to B.Tech students on reinforcement learning, artificial intelligence, and machine learning</li>
-          <li>Blended theoretical foundations with real-world AI implementations and future industry trends, encouraging students to explore advanced domains in AI/ML</li>
-          <li><a href="talks/avanthi_appreciation.pdf" target="_blank">View Letter of Appreciation (PDF)</a></li>
-        </ul>
+        <div class="talk-links"><a href="talks/avanthi_appreciation.pdf" target="_blank">View Letter of Appreciation (PDF) &rarr;</a></div>
       </div>
     </div>
   </section>
@@ -1089,31 +1038,52 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Experience -> US map pin highlighting
+    // Experience -> US map: state highlighting + pin overlay
     const locationMap = {
-      nvidia:   { pins: ['bay-area'],         label: 'Santa Clara, CA' },
-      didi:     { pins: ['bay-area'],         label: 'Mountain View, CA' },
-      motional: { pins: ['boston', 'lv'],     label: 'Boston, MA \u00B7 Las Vegas, NV' },
-      disney:   { pins: ['la'],               label: 'Glendale, CA' },
-      berry:    { pins: ['ny'],               label: 'Macedon, NY' },
-      onsemi:   { pins: ['ri'],               label: 'East Greenwich, RI' }
+      nvidia:   { states: ['ca'],       pins: [{x: 60,  y: 275}], label: 'Santa Clara, CA' },
+      didi:     { states: ['ca'],       pins: [{x: 60,  y: 275}], label: 'Mountain View, CA' },
+      motional: { states: ['ma','nv'],  pins: [{x: 905, y: 178}, {x: 150, y: 335}], label: 'Boston, MA \u00B7 Las Vegas, NV' },
+      disney:   { states: ['ca'],       pins: [{x: 90,  y: 380}], label: 'Glendale, CA' },
+      berry:    { states: ['ny'],       pins: [{x: 810, y: 178}], label: 'Macedon, NY' },
+      onsemi:   { states: ['ri'],       pins: [{x: 902, y: 188}], label: 'East Greenwich, RI' }
     };
     const expItems = document.querySelectorAll('.exp-item[data-loc-key]');
-    const pinGroups = document.querySelectorAll('.exp-map svg g[data-loc]');
     const mapLabel = document.getElementById('expMapLabel');
+    const mapHost  = document.getElementById('usMap');
+    let mapSvg = null, pinLayer = null;
+    const SVG_NS = 'http://www.w3.org/2000/svg';
 
     function setActiveLocation(key) {
+      if (!mapSvg) return;
       const entry = locationMap[key];
       if (!entry) return;
-      pinGroups.forEach(g => {
-        const isActive = entry.pins.includes(g.dataset.loc);
-        g.querySelectorAll('.map-pin').forEach(p => p.classList.toggle('active', isActive));
-        g.querySelectorAll('.map-pulse').forEach(p => p.classList.toggle('active', isActive));
+      mapSvg.querySelectorAll('.state').forEach(p => p.classList.remove('is-active'));
+      entry.states.forEach(s => {
+        const el = mapSvg.querySelector('.st-' + s);
+        if (el) el.classList.add('is-active');
+      });
+      while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
+      entry.pins.forEach(pin => {
+        const pulse = document.createElementNS(SVG_NS, 'circle');
+        pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
+        pulse.setAttribute('r', 5); pulse.setAttribute('class', 'map-pulse active');
+        const dot = document.createElementNS(SVG_NS, 'circle');
+        dot.setAttribute('cx', pin.x); dot.setAttribute('cy', pin.y);
+        dot.setAttribute('r', 5); dot.setAttribute('class', 'map-pin active');
+        pinLayer.appendChild(pulse);
+        pinLayer.appendChild(dot);
       });
       mapLabel.textContent = entry.label;
     }
 
-    if (pinGroups.length && expItems.length) {
+    function initMap(svgText) {
+      mapHost.innerHTML = svgText;
+      mapSvg = mapHost.querySelector('svg');
+      if (!mapSvg) return;
+      pinLayer = document.createElementNS(SVG_NS, 'g');
+      pinLayer.setAttribute('class', 'pin-layer');
+      mapSvg.appendChild(pinLayer);
+
       const visibility = new Map();
       const mapObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => visibility.set(e.target, e.intersectionRatio));
@@ -1125,6 +1095,10 @@
       }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
       expItems.forEach(el => mapObserver.observe(el));
       setActiveLocation('nvidia');
+    }
+
+    if (mapHost && expItems.length) {
+      fetch('assets/us-map.svg').then(r => r.text()).then(initMap).catch(() => {});
     }
   </script>
 </body>
