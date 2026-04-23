@@ -265,7 +265,6 @@
       display: block;
       overflow: visible;
     }
-    /* US flag palette */
     .us-map-host .state {
       fill: var(--bg-card-hover);
       stroke: var(--border);
@@ -273,21 +272,21 @@
       transition: fill 0.4s, stroke 0.4s, stroke-width 0.4s;
     }
     .us-map-host .state.is-active {
-      fill: #3C3B6E;     /* Old Glory Blue */
-      stroke: #FFFFFF;
-      stroke-width: 1.6;
+      fill: var(--accent);
+      stroke: var(--accent-hover);
+      stroke-width: 1.4;
     }
     .map-pin-ring {
-      fill: #FFFFFF;
-      stroke: #B22234;   /* Old Glory Red */
-      stroke-width: 1.5;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
     }
     .map-pin {
-      fill: #B22234;     /* Old Glory Red */
+      fill: #ef4444;
       transition: r 0.35s;
     }
     .map-pulse {
-      fill: #B22234;
+      fill: #ef4444;
       transform-origin: center;
       transform-box: fill-box;
       animation: mapPulse 1.6s ease-out infinite;
@@ -1061,21 +1060,49 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Sticky US map: state highlighting + pin overlay (used by Experience and Education)
+    // Sticky maps: US + India outline, with state highlighting, pin overlay, and zoom-to-state.
     const expLocations = {
-      nvidia:   { states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Santa Clara'}],     label: 'Santa Clara, CA' },
-      didi:     { states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Mountain View'}],   label: 'Mountain View, CA' },
-      motional: { states: ['ma','nv'],  pins: [{x: 905, y: 178, label: 'Boston', labelDx: -14, labelAnchor: 'end'}, {x: 150, y: 335, label: 'Las Vegas'}], label: 'Boston, MA \u00B7 Las Vegas, NV' },
-      disney:   { states: ['ca'],       pins: [{x: 90,  y: 380, label: 'Glendale'}],        label: 'Glendale, CA' },
-      berry:    { states: ['ny'],       pins: [{x: 810, y: 178, label: 'Macedon, NY'}],     label: 'Macedon, NY' },
-      onsemi:   { states: ['ri'],       pins: [{x: 902, y: 188, label: 'E. Greenwich', labelDx: -14, labelAnchor: 'end'}], label: 'East Greenwich, RI' }
+      nvidia:   { map: 'us', states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Santa Clara'}],     label: 'Santa Clara, CA' },
+      didi:     { map: 'us', states: ['ca'],       pins: [{x: 60,  y: 275, label: 'Mountain View'}],   label: 'Mountain View, CA' },
+      motional: { map: 'us', states: ['ma','nv'],  pins: [{x: 905, y: 178, label: 'Boston', labelDx: -14, labelAnchor: 'end'}, {x: 150, y: 335, label: 'Las Vegas'}], label: 'Boston, MA \u00B7 Las Vegas, NV' },
+      disney:   { map: 'us', states: ['ca'],       pins: [{x: 90,  y: 380, label: 'Glendale'}],        label: 'Glendale, CA' },
+      berry:    { map: 'us', states: ['ny'],       pins: [{x: 810, y: 178, label: 'Macedon, NY'}],     label: 'Macedon, NY' },
+      onsemi:   { map: 'us', states: ['ri'],       pins: [{x: 902, y: 188, label: 'E. Greenwich', labelDx: -14, labelAnchor: 'end'}], label: 'East Greenwich, RI' }
     };
     const eduLocations = {
-      stanford: { states: ['ca'],       pins: [{x: 60,  y: 280, label: 'Stanford'}],        label: 'Stanford, CA' },
-      rit:      { states: ['ny'],       pins: [{x: 808, y: 178, label: 'Rochester'}],       label: 'Rochester, NY' },
-      gitam:    { states: [],           pins: [], intl: { code: 'in', name: 'India' }, label: 'Visakhapatnam, India' }
+      stanford: { map: 'us',    states: ['ca'], pins: [{x: 60,  y: 280, label: 'Stanford'}],         label: 'Stanford, CA' },
+      rit:      { map: 'us',    states: ['ny'], pins: [{x: 808, y: 178, label: 'Rochester'}],        label: 'Rochester, NY' },
+      gitam:    { map: 'india', states: ['ap'], pins: [{x: 320, y: 268, label: 'Visakhapatnam', labelDx: -10, labelAnchor: 'end'}], label: 'Visakhapatnam, India' }
     };
+
     const SVG_NS = 'http://www.w3.org/2000/svg';
+    const MAP_SOURCES = { us: 'assets/us-map.svg', india: 'assets/india-map.svg' };
+    const DEFAULT_VB  = { us: [30, 60, 900, 490], india: [20, 10, 360, 440] };
+    const mapCache = {};
+
+    function loadMap(name) {
+      if (!mapCache[name]) {
+        mapCache[name] = fetch(MAP_SOURCES[name]).then(r => r.text());
+      }
+      return mapCache[name];
+    }
+
+    function easeInOutQuad(t) { return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; }
+
+    function animateViewBox(svg, target, duration) {
+      const cur = svg.viewBox.baseVal;
+      const start = [cur.x, cur.y, cur.width, cur.height];
+      if (svg._vbAnim) cancelAnimationFrame(svg._vbAnim);
+      const t0 = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - t0) / duration);
+        const e = easeInOutQuad(t);
+        const vb = start.map((s, i) => s + (target[i] - s) * e);
+        svg.setAttribute('viewBox', vb.join(' '));
+        if (t < 1) svg._vbAnim = requestAnimationFrame(step);
+      }
+      svg._vbAnim = requestAnimationFrame(step);
+    }
 
     function buildMap(hostId, labelId, locations, defaultKey, itemSelector) {
       const host  = document.getElementById(hostId);
@@ -1084,19 +1111,32 @@
       const items = document.querySelectorAll(itemSelector);
       if (!items.length) return;
 
-      let svg = null, pinLayer = null;
+      const svgs = {};       // { 'us': SVGElement, 'india': SVGElement }
+      const pinLayers = {};  // { 'us': <g>, 'india': <g> }
+      let currentMap = null;
+      let pendingKey = null;
+
+      function showMap(name) {
+        if (currentMap === name) return;
+        Object.entries(svgs).forEach(([n, el]) => el.style.display = (n === name ? 'block' : 'none'));
+        currentMap = name;
+      }
 
       function setActive(key) {
-        if (!svg) return;
         const entry = locations[key];
         if (!entry) return;
+        if (!svgs[entry.map]) { pendingKey = key; return; }
+        showMap(entry.map);
+        const svg = svgs[entry.map];
+        const pinLayer = pinLayers[entry.map];
+        // Highlight active states
         svg.querySelectorAll('.state').forEach(p => p.classList.remove('is-active'));
         entry.states.forEach(s => {
           const el = svg.querySelector('.st-' + s);
           if (el) el.classList.add('is-active');
         });
+        // Rebuild pins
         while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
-        if (entry.intl) renderIntlFlag(pinLayer, entry.intl);
         entry.pins.forEach(pin => {
           const pulse = document.createElementNS(SVG_NS, 'circle');
           pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
@@ -1121,16 +1161,64 @@
           }
         });
         label.textContent = entry.label;
+        // Compute zoom-to viewBox: union of active state bboxes + pin coords + padding
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        entry.states.forEach(s => {
+          const el = svg.querySelector('.st-' + s);
+          if (!el) return;
+          try {
+            const bb = el.getBBox();
+            minX = Math.min(minX, bb.x);
+            minY = Math.min(minY, bb.y);
+            maxX = Math.max(maxX, bb.x + bb.width);
+            maxY = Math.max(maxY, bb.y + bb.height);
+          } catch(e) {}
+        });
+        entry.pins.forEach(p => {
+          minX = Math.min(minX, p.x - 8);
+          minY = Math.min(minY, p.y - 8);
+          maxX = Math.max(maxX, p.x + 8);
+          maxY = Math.max(maxY, p.y + 8);
+        });
+        const def = DEFAULT_VB[entry.map];
+        if (minX === Infinity) {
+          animateViewBox(svg, def, 700);
+        } else {
+          // Pad and preserve aspect ratio of the SVG
+          const w = maxX - minX, h = maxY - minY;
+          const padW = w * 0.6, padH = h * 0.6;
+          let vbW = w + padW, vbH = h + padH;
+          const aspect = def[2] / def[3];
+          if (vbW / vbH > aspect) {
+            vbH = vbW / aspect;
+          } else {
+            vbW = vbH * aspect;
+          }
+          const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+          const target = [cx - vbW/2, cy - vbH/2, vbW, vbH];
+          animateViewBox(svg, target, 700);
+        }
       }
 
-      function init(svgText) {
-        host.innerHTML = svgText;
-        svg = host.querySelector('svg');
+      function attachMap(name, svgText) {
+        const wrap = document.createElement('div');
+        wrap.innerHTML = svgText;
+        const svg = wrap.querySelector('svg');
         if (!svg) return;
-        pinLayer = document.createElementNS(SVG_NS, 'g');
+        svg.style.display = 'none';
+        host.appendChild(svg);
+        const pinLayer = document.createElementNS(SVG_NS, 'g');
         pinLayer.setAttribute('class', 'pin-layer');
         svg.appendChild(pinLayer);
+        svgs[name] = svg;
+        pinLayers[name] = pinLayer;
+      }
 
+      // Determine which maps are needed
+      const mapsNeeded = new Set();
+      Object.values(locations).forEach(l => mapsNeeded.add(l.map));
+
+      Promise.all([...mapsNeeded].map(n => loadMap(n).then(t => attachMap(n, t)))).then(() => {
         const visibility = new Map();
         const obs = new IntersectionObserver((entries) => {
           entries.forEach(e => visibility.set(e.target, e.intersectionRatio));
@@ -1141,65 +1229,8 @@
           if (bestKey) setActive(bestKey);
         }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
         items.forEach(el => obs.observe(el));
-        setActive(defaultKey);
-      }
-
-      fetch('assets/us-map.svg').then(r => r.text()).then(init).catch(() => {});
-    }
-
-    function renderIntlFlag(layer, intl) {
-      // Centered Indian flag overlay (saffron / white+chakra / green)
-      const cx = 480, cy = 280, w = 180, h = 120;
-      const x0 = cx - w/2, y0 = cy - h/2;
-      const bandH = h/3;
-      const bands = [
-        { y: y0,            h: bandH, fill: '#FF9933' },
-        { y: y0 + bandH,    h: bandH, fill: '#FFFFFF' },
-        { y: y0 + 2*bandH,  h: bandH, fill: '#138808' }
-      ];
-      bands.forEach(b => {
-        const r = document.createElementNS(SVG_NS, 'rect');
-        r.setAttribute('x', x0); r.setAttribute('y', b.y);
-        r.setAttribute('width', w); r.setAttribute('height', b.h);
-        r.setAttribute('fill', b.fill);
-        r.setAttribute('stroke', '#0b0f19');
-        r.setAttribute('stroke-width', 0.6);
-        layer.appendChild(r);
+        setActive(pendingKey || defaultKey);
       });
-      // Ashoka chakra: navy ring with spokes in the center white band
-      const chakraR = bandH * 0.42;
-      const ring = document.createElementNS(SVG_NS, 'circle');
-      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
-      ring.setAttribute('r', chakraR);
-      ring.setAttribute('fill', 'none');
-      ring.setAttribute('stroke', '#000080');
-      ring.setAttribute('stroke-width', 2.2);
-      layer.appendChild(ring);
-      const hub = document.createElementNS(SVG_NS, 'circle');
-      hub.setAttribute('cx', cx); hub.setAttribute('cy', cy);
-      hub.setAttribute('r', 2);
-      hub.setAttribute('fill', '#000080');
-      layer.appendChild(hub);
-      for (let i = 0; i < 24; i++) {
-        const a = (i * Math.PI) / 12;
-        const x2 = cx + Math.cos(a) * chakraR;
-        const y2 = cy + Math.sin(a) * chakraR;
-        const sp = document.createElementNS(SVG_NS, 'line');
-        sp.setAttribute('x1', cx); sp.setAttribute('y1', cy);
-        sp.setAttribute('x2', x2); sp.setAttribute('y2', y2);
-        sp.setAttribute('stroke', '#000080');
-        sp.setAttribute('stroke-width', 0.9);
-        layer.appendChild(sp);
-      }
-      // Country label below the flag
-      const text = document.createElementNS(SVG_NS, 'text');
-      text.setAttribute('x', cx);
-      text.setAttribute('y', y0 + h + 28);
-      text.setAttribute('class', 'map-pin-label');
-      text.setAttribute('text-anchor', 'middle');
-      text.setAttribute('font-size', '22');
-      text.textContent = intl.name;
-      layer.appendChild(text);
     }
 
     buildMap('usMap',  'expMapLabel', expLocations, 'nvidia',   '.exp-item[data-loc-key]');

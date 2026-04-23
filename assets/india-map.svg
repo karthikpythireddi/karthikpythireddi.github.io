@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 10 360 440" class="us-map-svg india-map">
+<g class="us-states">
+<path class="state st-india" d="M 96,60 L 130,42 L 168,30 L 200,22 L 230,28 L 258,42 L 285,55 L 312,60 L 338,72 L 358,90 L 360,118 L 340,128 L 314,124 L 296,138 L 304,166 L 320,190 L 332,220 L 332,256 L 322,290 L 304,326 L 280,360 L 250,390 L 222,412 L 200,430 L 178,420 L 162,398 L 148,372 L 138,344 L 130,316 L 122,288 L 116,260 L 112,232 L 110,204 L 96,184 L 78,180 L 62,170 L 50,154 L 42,134 L 40,112 L 50,92 L 70,76 Z"><title>India</title></path>
+<path class="state st-ap" d="M 234,232 L 260,224 L 282,228 L 300,238 L 318,250 L 326,272 L 322,294 L 312,314 L 296,330 L 274,338 L 252,332 L 238,318 L 228,298 L 224,276 L 226,252 Z"><title>Andhra Pradesh</title></path>
+</g>
+</svg>
