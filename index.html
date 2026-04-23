@@ -261,10 +261,15 @@
     }
     .us-map-host {
       width: 100%;
+      height: 180px;
       position: relative;
       overflow: hidden;
+      transition: height 0.4s ease;
     }
+    .us-map-host.is-india { height: 320px; }
     .us-map-host svg {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       display: block;
@@ -1124,8 +1129,7 @@
       function showMap(name) {
         if (currentMap === name) return;
         Object.entries(svgs).forEach(([n, el]) => el.style.display = (n === name ? 'block' : 'none'));
-        const def = DEFAULT_VB[name];
-        host.style.aspectRatio = def[2] + ' / ' + def[3];
+        host.classList.toggle('is-india', name === 'india');
         currentMap = name;
       }
 
