@@ -1072,12 +1072,12 @@
     const eduLocations = {
       stanford: { map: 'us',    states: ['ca'], pins: [{x: 60,  y: 280, label: 'Stanford'}],         label: 'Stanford, CA' },
       rit:      { map: 'us',    states: ['ny'], pins: [{x: 808, y: 178, label: 'Rochester'}],        label: 'Rochester, NY' },
-      gitam:    { map: 'india', states: ['ap'], pins: [{x: 320, y: 268, label: 'Visakhapatnam', labelDx: -10, labelAnchor: 'end'}], label: 'Visakhapatnam, India' }
+      gitam:    { map: 'india', states: ['ap'], pins: [{x: 840, y: 1130, label: 'Visakhapatnam', labelDx: -22, labelAnchor: 'end'}], label: 'Visakhapatnam, India' }
     };
 
     const SVG_NS = 'http://www.w3.org/2000/svg';
     const MAP_SOURCES = { us: 'assets/us-map.svg', india: 'assets/india-map.svg' };
-    const DEFAULT_VB  = { us: [30, 60, 900, 490], india: [20, 10, 360, 440] };
+    const DEFAULT_VB  = { us: [30, 60, 900, 490], india: [0, 0, 1486, 1734] };
     const mapCache = {};
 
     function loadMap(name) {
@@ -1135,33 +1135,7 @@
           const el = svg.querySelector('.st-' + s);
           if (el) el.classList.add('is-active');
         });
-        // Rebuild pins
-        while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
-        entry.pins.forEach(pin => {
-          const pulse = document.createElementNS(SVG_NS, 'circle');
-          pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
-          pulse.setAttribute('r', 8); pulse.setAttribute('class', 'map-pulse');
-          const ring = document.createElementNS(SVG_NS, 'circle');
-          ring.setAttribute('cx', pin.x); ring.setAttribute('cy', pin.y);
-          ring.setAttribute('r', 9); ring.setAttribute('class', 'map-pin-ring');
-          const dot = document.createElementNS(SVG_NS, 'circle');
-          dot.setAttribute('cx', pin.x); dot.setAttribute('cy', pin.y);
-          dot.setAttribute('r', 7); dot.setAttribute('class', 'map-pin');
-          pinLayer.appendChild(pulse);
-          pinLayer.appendChild(ring);
-          pinLayer.appendChild(dot);
-          if (pin.label) {
-            const text = document.createElementNS(SVG_NS, 'text');
-            text.setAttribute('x', pin.x + (pin.labelDx || 14));
-            text.setAttribute('y', pin.y + (pin.labelDy || 5));
-            text.setAttribute('class', 'map-pin-label');
-            text.setAttribute('text-anchor', pin.labelAnchor || 'start');
-            text.textContent = pin.label;
-            pinLayer.appendChild(text);
-          }
-        });
-        label.textContent = entry.label;
-        // Compute zoom-to viewBox: union of active state bboxes + pin coords + padding
+        // Compute zoom-to viewBox first (so we know the pin scale factor)
         let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         entry.states.forEach(s => {
           const el = svg.querySelector('.st-' + s);
@@ -1175,29 +1149,68 @@
           } catch(e) {}
         });
         entry.pins.forEach(p => {
-          minX = Math.min(minX, p.x - 8);
-          minY = Math.min(minY, p.y - 8);
-          maxX = Math.max(maxX, p.x + 8);
-          maxY = Math.max(maxY, p.y + 8);
+          minX = Math.min(minX, p.x - 5);
+          minY = Math.min(minY, p.y - 5);
+          maxX = Math.max(maxX, p.x + 5);
+          maxY = Math.max(maxY, p.y + 5);
         });
         const def = DEFAULT_VB[entry.map];
+        let target;
         if (minX === Infinity) {
-          animateViewBox(svg, def, 700);
+          target = def.slice();
         } else {
-          // Pad and preserve aspect ratio of the SVG
           const w = maxX - minX, h = maxY - minY;
-          const padW = w * 0.6, padH = h * 0.6;
+          const padW = Math.max(w * 0.7, def[2] * 0.05);
+          const padH = Math.max(h * 0.7, def[3] * 0.05);
           let vbW = w + padW, vbH = h + padH;
           const aspect = def[2] / def[3];
-          if (vbW / vbH > aspect) {
-            vbH = vbW / aspect;
-          } else {
-            vbW = vbH * aspect;
-          }
+          if (vbW / vbH > aspect) vbH = vbW / aspect;
+          else vbW = vbH * aspect;
           const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
-          const target = [cx - vbW/2, cy - vbH/2, vbW, vbH];
-          animateViewBox(svg, target, 700);
+          target = [cx - vbW/2, cy - vbH/2, vbW, vbH];
         }
+        // Scale pin/label sizes so they appear consistent on-screen across zoom levels
+        const containerW = host.clientWidth || 280;
+        const px = (screenPx) => screenPx * target[2] / containerW;
+        const pinR    = px(7);
+        const ringR   = px(9);
+        const pulseR  = px(8);
+        const fontPx  = px(11);
+        const labelDxBase = px(8);
+        // Rebuild pins
+        while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
+        entry.pins.forEach(pin => {
+          const pulse = document.createElementNS(SVG_NS, 'circle');
+          pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
+          pulse.setAttribute('r', pulseR); pulse.setAttribute('class', 'map-pulse');
+          const ring = document.createElementNS(SVG_NS, 'circle');
+          ring.setAttribute('cx', pin.x); ring.setAttribute('cy', pin.y);
+          ring.setAttribute('r', ringR);
+          ring.setAttribute('fill', 'none');
+          ring.setAttribute('stroke', '#fff');
+          ring.setAttribute('stroke-width', px(2.5));
+          const dot = document.createElementNS(SVG_NS, 'circle');
+          dot.setAttribute('cx', pin.x); dot.setAttribute('cy', pin.y);
+          dot.setAttribute('r', pinR); dot.setAttribute('class', 'map-pin');
+          pinLayer.appendChild(pulse);
+          pinLayer.appendChild(ring);
+          pinLayer.appendChild(dot);
+          if (pin.label) {
+            const text = document.createElementNS(SVG_NS, 'text');
+            const dx = (pin.labelDx != null ? Math.sign(pin.labelDx) * labelDxBase : labelDxBase);
+            const dy = (pin.labelDy != null ? pin.labelDy : px(4));
+            text.setAttribute('x', pin.x + dx);
+            text.setAttribute('y', pin.y + dy);
+            text.setAttribute('class', 'map-pin-label');
+            text.setAttribute('text-anchor', pin.labelAnchor || 'start');
+            text.setAttribute('font-size', fontPx);
+            text.setAttribute('stroke-width', px(3));
+            text.textContent = pin.label;
+            pinLayer.appendChild(text);
+          }
+        });
+        label.textContent = entry.label;
+        animateViewBox(svg, target, 700);
       }
 
       function attachMap(name, svgText) {
