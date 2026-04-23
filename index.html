@@ -1073,7 +1073,7 @@
     const eduLocations = {
       stanford: { states: ['ca'],       pins: [{x: 60,  y: 280, label: 'Stanford'}],        label: 'Stanford, CA' },
       rit:      { states: ['ny'],       pins: [{x: 808, y: 178, label: 'Rochester'}],       label: 'Rochester, NY' },
-      gitam:    { states: [],           pins: [], label: 'Visakhapatnam, India \u00B7 international' }
+      gitam:    { states: [],           pins: [], intl: { code: 'in', name: 'India' }, label: 'Visakhapatnam, India' }
     };
     const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -1096,6 +1096,7 @@
           if (el) el.classList.add('is-active');
         });
         while (pinLayer.firstChild) pinLayer.removeChild(pinLayer.firstChild);
+        if (entry.intl) renderIntlFlag(pinLayer, entry.intl);
         entry.pins.forEach(pin => {
           const pulse = document.createElementNS(SVG_NS, 'circle');
           pulse.setAttribute('cx', pin.x); pulse.setAttribute('cy', pin.y);
@@ -1144,6 +1145,61 @@
       }
 
       fetch('assets/us-map.svg').then(r => r.text()).then(init).catch(() => {});
+    }
+
+    function renderIntlFlag(layer, intl) {
+      // Centered Indian flag overlay (saffron / white+chakra / green)
+      const cx = 480, cy = 280, w = 180, h = 120;
+      const x0 = cx - w/2, y0 = cy - h/2;
+      const bandH = h/3;
+      const bands = [
+        { y: y0,            h: bandH, fill: '#FF9933' },
+        { y: y0 + bandH,    h: bandH, fill: '#FFFFFF' },
+        { y: y0 + 2*bandH,  h: bandH, fill: '#138808' }
+      ];
+      bands.forEach(b => {
+        const r = document.createElementNS(SVG_NS, 'rect');
+        r.setAttribute('x', x0); r.setAttribute('y', b.y);
+        r.setAttribute('width', w); r.setAttribute('height', b.h);
+        r.setAttribute('fill', b.fill);
+        r.setAttribute('stroke', '#0b0f19');
+        r.setAttribute('stroke-width', 0.6);
+        layer.appendChild(r);
+      });
+      // Ashoka chakra: navy ring with spokes in the center white band
+      const chakraR = bandH * 0.42;
+      const ring = document.createElementNS(SVG_NS, 'circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+      ring.setAttribute('r', chakraR);
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', '#000080');
+      ring.setAttribute('stroke-width', 2.2);
+      layer.appendChild(ring);
+      const hub = document.createElementNS(SVG_NS, 'circle');
+      hub.setAttribute('cx', cx); hub.setAttribute('cy', cy);
+      hub.setAttribute('r', 2);
+      hub.setAttribute('fill', '#000080');
+      layer.appendChild(hub);
+      for (let i = 0; i < 24; i++) {
+        const a = (i * Math.PI) / 12;
+        const x2 = cx + Math.cos(a) * chakraR;
+        const y2 = cy + Math.sin(a) * chakraR;
+        const sp = document.createElementNS(SVG_NS, 'line');
+        sp.setAttribute('x1', cx); sp.setAttribute('y1', cy);
+        sp.setAttribute('x2', x2); sp.setAttribute('y2', y2);
+        sp.setAttribute('stroke', '#000080');
+        sp.setAttribute('stroke-width', 0.9);
+        layer.appendChild(sp);
+      }
+      // Country label below the flag
+      const text = document.createElementNS(SVG_NS, 'text');
+      text.setAttribute('x', cx);
+      text.setAttribute('y', y0 + h + 28);
+      text.setAttribute('class', 'map-pin-label');
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('font-size', '22');
+      text.textContent = intl.name;
+      layer.appendChild(text);
     }
 
     buildMap('usMap',  'expMapLabel', expLocations, 'nvidia',   '.exp-item[data-loc-key]');
